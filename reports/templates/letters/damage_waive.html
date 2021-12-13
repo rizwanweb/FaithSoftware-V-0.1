@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        @page {
+            size: letter portrait;
+            margin: 2cm;
+        }
+        body {
+            font-size: 14px;
+            
+        }
+        h1 {
+            font-size: 36px;
+            text-align: center;
+        }
+        #job {
+            font-weight: bold;
+            text-align: left;
+        }
+        #date {
+            font-weight: bold;
+            text-align: right;
+        }
+
+    </style>
+</head>
+
+<body>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <table>
+        <tr>
+            <td style="width: 65%;"><p>M/S. {{job.shipping}}</p></td>
+            <td><u>Dated: {% now "jS F Y" %}</u></td>
+        </tr>
+    </table>
+    
+    <p><u>Karachi.</u></p>
+
+    <br>
+    <table>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <td style="width: 15%;">SUB:</td>
+            <td style="width: 75%;">REQUEST TO WAIVE DAMAGE CHARGES OF Rs.____________</td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td>REF:</td>
+            {% if job.containers > 0 %}
+            <td style="font-size: 12px;"><b>{{job.containers}}X{{job.size}}</b> CONT NO. AS PER BL, VESSEL  <b>{{job.vessel}}</b>, B/L# <b>{{job.bl}}</b></td>
+            
+            {% else %}
+            <td style="font-size: 12px;"><b>{{job.packages}}</b> CONT NO. AS PER BL, VESSEL  <b>{{job.vessel}}</b>, B/L# <b>{{job.bl}}</b></td>
+            {% endif %}
+        </tr>
+        <tr>
+            <td></td>
+            <td style="font-size: 12px;">IGM NO. <b>{{job.igm}}/2021</b> DATED <b>{{job.igmDate}}</b> INDEX No. <b>{{job.index}}</b></td>
+        </tr>
+                <tr>
+            <td></td>
+            <td style="border-bottom: 1px solid black;">A/c <b>{{job.client}}</b></td>
+        </tr>
+    </table>
+    <br>
+    <div>
+        <p>Dear Sir,</p>
+        <p style="text-align: justify;">We would like to bring to your kind notice that we are regular customer of your Shipping line.
+
+            This letter is a reuqest to please waive off the damage charges on the above referenced amount as we believe that you are over charging us.
+            </p>
+        <p>Therefore you are requested to please waive the above noted damage charges and oblige</p>
+        <p>Your kind co-operation in this regard will be highly appriciated.</p>
+        <br>
+        <p>Thanking You</p>
+        
+        <p>Yours Faithfully</p>
+        <br><br>
+        <p>For: {{job.client}}</p>
+    </div>
+</body>
+
+</html>

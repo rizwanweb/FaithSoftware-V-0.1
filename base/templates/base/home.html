@@ -1,0 +1,106 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Faith Associates{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock css %}
+{% block content %}
+
+<br>
+<div>
+{% include 'base/status.html' %}
+
+</div>
+
+<br>
+
+<div class="row">
+    <div class="col-md-6">
+        <h5>Last 5 PID</h5>
+        <hr>
+        <div class="card card-body glass">
+            <a style="font-size: 24px;" class="btn btn-primary btn-sm btn-block" href="{% url 'create_pid' %}">Create New PID</a>
+            <table class="table table-sm" style="font-size: 12px">
+                <tr>
+                    <th>Job#</th>
+                    <th>Client</th>
+                    <th>Item</th>
+                    <th>Update</th>
+                    <th></th>
+                </tr>
+                {% for p in recentPids%}
+                <tr>
+                    <td>{{p.PIDNo}}</td>
+                    <td>{{p.client}}</td>
+                    <td>{{p.item}}</td>
+                    <td><a class="btn btn-sm btn-info" href="">Edit</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+            <center><a href="{% url 'pid_list' %}">View All PID</a></center>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <h5>Last 5 Jobs</h5>
+        <hr>
+        <div class="card card-body glass">
+            <a style="font-size: 24px;" class="btn btn-primary btn-sm btn-block" href="{% url 'create_job' %}">Create New Job</a>
+            <table class="table table-sm" style="font-size: 12px">
+                <tr>
+                    <th>Job#</th>
+                    <th>Client</th>
+                    <th>Item</th>
+                    <th>Update</th>
+                    <th></th>
+                </tr>
+                {% for j in recentJobs %}
+                <tr>
+                    <td>{{j.jobNo}}</td>
+                    <td>{{j.client}}</td>
+                    <td>{{j.item}}</td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'edit_job' j.id %}">Edit</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+            <center><a href="{% url 'job_list' %}">View All Jobs</a></center>
+        </div>
+    </div>
+<br>
+        <div class="col-md-12">
+        <br>
+        <h5>Last 5 Refunds</h5>
+        <hr>
+        <div class="card card-body glass">
+            <a style="font-size: 24px;" class="btn btn-primary btn-sm btn-block" href="{% url 'create_job' %}">Create New Job</a>
+            <table class="table table-sm" style="font-size: 14px">
+                <tr>
+                    <th>Job#</th>
+                    <th>Client</th>
+                    <th>Deposit</th>
+                    <th>Shipping Line</th>
+                    <th>Refund Amount</th>
+                    <th>Due Date</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                {% for j in refunds %}
+                <tr>
+                    <td>{{j.job.jobNo}}</td>
+                    <td>{{j.job.client}}</td>
+                    <td>{{j.job.deposit}}</td>
+                    <td>{{j.job.shipping}}</td>
+                    <td class="text-center">{{j.refundAmount}}</td>
+                    <td>{{j.dueDate}}</td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'edit_job' j.id %}">Edit</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+            <center><a href="{% url 'refund_list' %}">View All Refunds</a></center>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

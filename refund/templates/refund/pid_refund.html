@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+<style>
+    .center {
+        margin: auto;
+        width: 60%;
+        padding: 10px;
+        margin-top: 20%
+    }
+
+    .card {
+        background: none;
+        padding: 10px;
+        border-radius: 10px box-shadow: 5px 10px #888888;
+    }
+
+    .form-control {
+        display: inline-block !important;
+    }
+</style>
+<div class="row form-inline center">
+    <form class="g-3" action="" method="post">
+        {% csrf_token %}
+        <div class="card card-body shadow-lg p-3 mb-5 bg-body rounded">
+            <center>
+                <h1>Add Refund Details</h1>
+            </center>
+            <div class="border">
+                <div class="container">
+                    <div class="row align-items-start">
+                        <div class="col">
+                            <p>Job#:<b>{{job.jobNo}}</b></p>
+                        </div>
+                        <div class="col">
+                            <p>Client:<b>{{job.client}}</b></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row align-items-start">
+                        <div class="col-7">
+                            <p>Shipping Line#:<b>{{job.shipping}}</b></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="align-items-end col-3">
+                <label for="">Container Deposit</label>
+                <input class="form-control text-end" type="text" id="deposit" name="" value="{{job.deposit}}" disabled>
+                
+                <label for="">Job#:</label>
+                {% render_field form.job class="form-control text-end" %}
+                
+                <label for="">Container Rent:</label>
+                {% render_field form.rent class="form-control text-end" value="0" %}
+
+                <label for="">Damage Charges</label>
+                {% render_field form.damageCharges class="form-control text-end" value="0" %}
+                <label for="">Washing Charges</label>
+                {% render_field form.washingCharges class="form-control text-end" value="0" %}
+
+                <label for="">Refund Amount</label>
+                {% render_field form.refundAmount class="form-control text-end"%}
+                <label for="">Due Date</label>
+                {% render_field form.dueDate|attr:"data-mask:00-00-0000" placeholder="dd-mm-yyyy" class="form-control"%}
+            </div>
+            <hr />
+            <input class="btn btn-primary" type="submit" value="Submit">
+        </div>
+    </form>
+</div>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+
+<script>
+
+    $(".form-control").on("input", function () { 
+
+        var deposit = parseInt($("#deposit").val())
+        console.log(deposit)
+        var rent = parseInt($("#id_rent").val())
+        var damageCharges = parseInt($("#id_damageCharges").val())
+        var washingCharges = parseInt($("#id_washingCharges").val())
+
+        var total = 0;
+        total += parseInt($("#id_rent").val());
+        total += parseInt($("#id_damageCharges").val());
+        total += parseInt($("#id_washingCharges").val());
+
+        var refund = (deposit - total)
+        
+
+        $("#id_refundAmount").val(refund)
+     })
+</script>
+{% endblock content %}

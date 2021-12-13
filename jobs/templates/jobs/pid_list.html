@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block title %}PID Listing{% endblock title %}
+
+{% block content %}
+
+<h1 class="text-center">PID Listing</h1>
+
+<form class="" action="" method="get"> 
+            {{jobFilter.form}}
+            <button class="btn btn-primary" type="submit">Search</button>
+</form>
+
+<br>
+<table class="table table-striped align-middle" style="font-size: 13px;">
+    <tr>
+        <td colspan="9"><a class="btn btn-primary btn-lg d-grid gap-3 col-6 mx-auto"
+                href="{% url 'create_pid' %}">Create New PID</a></td>
+    </tr>
+    <tr>
+        <th></th>
+        <th>PID No</th>
+        <th>Dated</th>
+        <th>Client</th>
+        <th>Description</th>
+        <th>Packages</th>
+        <th></th>
+        <th></th>
+    </tr>
+    
+    <tr>
+        {% for p in object_list %}
+        <td><a class="btn btn-info btn-sm" href="{% url 'edit_pid' p.id %}">Edit</a></td>
+        <td>{{p.PIDNo}}</td>
+        <td>{{p.Date|date:'d-m-Y'}}</td>
+        <td>{{p.client}}</td>
+        <td>{{p.item}}</td>
+        {% if p.containers %}
+            <td>{{p.containers}}X{{p.size}} CONT {{p.packages}}</td>
+        {% else %}
+            <td>{{p.packages}}</td>
+        {% endif %}
+    
+        <td>
+            <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-primary dropdown-toggle"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Print
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <li><a class="dropdown-item" href="{% url 'pidcalculationsheet' p.id %}">Calculation Sheet</a></li>
+                    <li><a class="dropdown-item" href="#">Refund Letter</a></li>
+                    <li><a class="dropdown-item" href="{% url 'piddamagewaive' p.id %}">Damage Waive Letter</a></li>
+                    <li><hr></li>
+                    <li><a class="dropdown-item" href="{% url 'authority_letter' p.id %}" >DO Authority Letter</a></li>
+                    <li><a class="dropdown-item" href="{% url 'do_undertaking' p.id %}" >DO Undertaking</a></li>
+                    <li><hr></li>
+                    <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+                </ul>
+            </div>
+        </td>
+        <td>
+            <a class="btn btn-sm btn-info" href="{% url 'sendmail' p.id %}">E-Mail</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<div>
+    <span>
+        {% if page_obj.has_previous %}
+            <a href="?page={{page_obj.previous_page_number}}">Previous</a>
+        {% endif %}
+        <span>{{ page_obj.number }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{page_obj.next_page_number}}">Next</a>
+        {% endif %}
+
+    </span>
+</div>
+
+
+
+{% endblock content %}

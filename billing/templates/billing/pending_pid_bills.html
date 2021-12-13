@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Pending Bill Listing{% endblock title %}
+
+{% block content %}
+
+
+<h1 class="text-center">Pending Bills</h1>
+
+<form class="form-control" action="" method="get">
+    <div class="row">
+        <div class="col-md-4"><input class="form-control" type="text"></div>
+        <div class="col-md-2"><button class="btn btn-primary" type="submit">Search</button></div>
+    </div>
+</form>
+<br>
+<br>
+<table class="table table-striped align-middle" style="font-size: 13px;">
+    <tr>
+        <th></th>
+        <th scope="col">PID No</th>
+        <th>Dated</th>
+        <th>Client</th>
+        <th>Description</th>
+        <th>Packages</th>
+        <th></th>
+    </tr>
+
+    <tr>
+        {% for j in pid_list %}
+        {% if not j.billed %}
+        <td><a class="btn btn-sm btn-info" href="{% url 'edit_pid' j.id %}">Edit</a></td>
+        <td class="">{{j.PIDNo}}</td>
+        <td class="col-1">{{j.Date|date:'d-m-Y'}}</td>
+        <td>{{j.client}}</td>
+        <td class="col-2">{{j.item}}</td>
+        <td class="col-2">{{j.packages}}</td>
+        <td><a class="btn btn-sm btn-primary" href="{% url 'create_pid_bill' j.id %}" style="font-size: 12px;">Create Bill</a></td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+<div>
+    <span>
+        {% if page_obj.has_previous %}
+            <a href="?page={{page_obj.previous_page_number}}">Previous</a>
+        {% endif %}
+        <span>{{ page_obj.number }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{page_obj.next_page_number}}">Next</a>
+        {% endif %}
+
+    </span>
+</div>
+{% endblock content %}

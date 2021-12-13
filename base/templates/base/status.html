@@ -1,0 +1,53 @@
+<style>
+    .my-card {
+    background: rgba( 111, 114, 212, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 0px );
+    -webkit-backdrop-filter: blur( 0px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
+</style>
+<br>
+
+<div class="row">
+    <div class="col">
+        <div class="col-md">
+            <div class="card text-center mb3 my-card" id="total-pid">
+                <div class="card-header">
+                    <h5 class="card-title">Total PID</h5>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">{{total_pid}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="col-md">
+            <div class="card text-center  mb3 my-card" id="total-delivered">
+                <div class="card-header">
+                    <h5 class="card-title">Total Jobs</h5>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">{{total_jobs}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="col-md">
+            <div class="card text-center mb3 my-card" id="total-pending">
+                <div class="card-header">
+                    <h5 class="card-title">Exchange Rate</h5>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">USD : {{usd}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+<br>
+<br>

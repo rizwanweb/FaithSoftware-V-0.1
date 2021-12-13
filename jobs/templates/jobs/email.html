@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    <div>
+
+        <div class="col-5">
+            <label for="">To: {{job.client.person}}</label>
+            <input name= "emailTo" class="form-control col-2" type="email" value="{{job.client.email}}">
+        </div>
+        <br>
+        <div class="col-5">
+            <label for="">Subject:</label>
+            <input name= "emailSubject" class="form-control col-2" type="text" value="{{job.containers}}X{{job.size}} CONT {{job.item}} LC# {{job.lc}} Dated: {{job.lcDate}}">
+        </div>
+        <br>
+        <div class="col-5">
+            <label for="">File Attachment</label>
+            <input name= "emailFile" class="form-control col-2" type="file" value="{{job.client.email}}">
+        </div>
+        <br>
+        <div class="col-5">
+            <label for="">Email Message:</label>
+            <textarea name= "emailMsg" class="form-control" id="exampleFormControlTextarea1" rows="5" value="">Dear Sir, Please Find the Attach File</textarea>
+        </div>
+        <br>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+
+{% endblock content %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Job Listing{% endblock title %}
+
+{% block content %}
+
+<br>
+<br>
+<h1 class="text-center">Bill Management</h1>
+
+<form class="" action="" method="get"> 
+            {{billFilter.form}}
+            <button class="btn btn-primary" type="submit">Search</button>
+</form>
+
+<table class="table table-striped align-middle" style="font-size: 13px">
+    <tr>
+        <th></th>
+        <th scope="col">Job No</th>
+        <th>Dated</th>
+        <th>Client</th>
+        <th>Description</th>
+        <th>Packages</th>
+        <th>L/C No.</th>
+        <th>B/L No.</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    <tr>
+        {% for b in object_list %}
+        <td><a class="btn btn-sm btn-info" href="{% url 'update_bill' b.job.id %}">Edit</a></td>
+        <td>{{b.job.jobNo}}</td>
+        <td>{{b.billDate|date:'d-m-Y'}}</td>
+        <td>{{b.job.client}}</td>
+        <td>{{b.job.item}}</td>
+        <td>{{b.job.packages}}</td>
+        <td>{{b.job.lc}}</td>
+        
+        <td><a class="btn btn-sm btn-success" href="{% url 'billreport' b.id %}">Print</a></td>
+        <td><a class="btn btn-sm btn-danger" href="{% url 'billreport' b.id %}">Delete</a></td>
+        <td></td>
+    </tr>
+    {% endfor %}
+</table>
+<div>
+    <span>
+        {% if page_obj.has_previous %}
+            <a href="?page={{page_obj.previous_page_number}}">Previous</a>
+        {% endif %}
+        <span>{{ page_obj.number }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{page_obj.next_page_number}}">Next</a>
+        {% endif %}
+
+    </span>
+</div>
+
+{% endblock content %}

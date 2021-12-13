@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Clients{% endblock title %}
+
+{% block content %}
+
+<br>
+<center><h1>Client List</h1></center>
+
+<br>
+
+<div class='col-md'>
+    <div class="card card-body">
+        <form class="" action="" method="get">
+            {{clientFilter.form}}
+            <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+        <br>
+        <table class="table table-striped" style="font-size: 14px;">
+            <a class="btn btn-outline btn-info btn-lg" href="{% url 'create_client' %}">Create New Client</a>
+            <tr>
+                <th>Name</th>
+                <th>Phone#</th>
+                <th>Mobile#</th>
+                <th>Email</th>
+                <th>City</th>
+                <th></th>
+                <th></th>
+
+            </tr>
+
+            {% for c in object_list %}
+            <tr>
+                <td class="col-6">{{c.name}}</td>
+                <td class="col-2">{{c.phone}}</td>
+                <td class="col-2">{{c.mobile}}</td>
+                <td class="col-2">{{c.email}}</td>
+                <td class="col-1">{{c.city}}</td>
+                <td class="col-1"><a class="btn btn-primary btn-sm" href="{% url 'client_home' c.id %}">View</a></td>
+                <td class="col-1"><a class="btn btn-danger btn-sm" href="">Remove</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div>
+            <span>
+                {% if page_obj.has_previous %}
+                <a href="?page={{page_obj.previous_page_number}}">Previous</a>
+                {% endif %}
+                <span>{{ page_obj.number }}</span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}">Next</a>
+                {% endif %}
+
+            </span>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock content %}

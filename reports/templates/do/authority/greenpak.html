@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style type="text/css">
+        @header {
+            
+        }
+        @page page1{
+            size: letter portrait;
+            margin: 2cm;
+            margin-top: 5cm;
+        }
+        @page page2{
+            size: letter portrait;
+            margin: 2cm;
+            margin-top: 5cm;
+        }
+        body {
+            font-size: 13px;
+        }
+        h1 {
+            font-size: 36px;
+            text-align: center;
+        }       
+
+    </style>
+</head>
+<body>
+
+    <p>Date: <b><u>{% now "d-m-Y" %}</u></b></p>
+    <br>
+    <p>To: <b>M/s: GreenPak Shipping (Pvt) Limited As agents of Evergreen Line</b></p>
+
+    <table>
+        <tr>
+            <td style="width:15%">Ref:</td>
+            <td>Bill of Lading <b>{{job.bl}}</b></td>
+        </tr>
+        <tr>
+            <td style="width:15%">Subject:</td>
+            <td><b>Authorization Letter for Taking the Delivery Order</b></td>
+        </tr>
+    </table>
+
+    <p align='justify'>
+        With reference to the above captioned shipment, please do note that we are the nominated Clearing Agent from the consignee <b><u>{{job.client}}</u></b> of the above-mentioned cargo and want to take the delivery order and gate pass as authorized by the consignee.
+    </p>
+
+    <p align='justify'>
+        We authorize Mr. <b>SYED JUNAID AHMED</b> Holding CNIC no: <b>42201-7116613-7</b> & <b>Mr. SYED RIZWAN ABBAS</b> S/o <b>Mr. SYED ABBAS</b> Bearing CNIC No. <b>42201-7871975-3</b> to take the delivery order on our behalf for the consignee.
+    </p>
+
+    <p align='justify'>
+        Also we do hereby solemnly undertake and confirm that we the nominated Clearing Agent of the consignee shall be responsible and liable of all consequences if any Government Authority, raise any objection in this regard.
+    </p>
+    <br><br>
+    <p>
+        Yours Faithfully,
+    </p>
+    <br>
+    <p>Company Name: <b>FAITH ASSOCIATES</b></p>
+    <br>
+    <p>Company Stamp</p>
+    <br><br>
+    <p>Signature</p>
+</body>
+     <pdf:nextpage name="page2" />
+<body>
+    <p>Date: <b><u>{% now "d-m-Y" %}</u></b></p>
+    <br>
+    <p>To: <b>M/s: GreenPak Shipping (Pvt) Limited As agents of Evergreen Line</b></p>
+
+    <table>
+        <tr>
+            <td style="width:15%">Ref:</td>
+            <td>Bill of Lading <b>{{job.bl}}</b></td>
+        </tr>
+        <tr>
+            <td style="width:15%">Subject:</td>
+            <td><b>Authorization Letter for Taking the Delivery Order</b></td>
+        </tr>
+    </table>
+
+    <p align='justify'>
+        With reference to the above captioned shipment, please do note that we are the nominated Clearing Agent from the consignee <b><u>{{job.client}}</u></b> of the above-mentioned cargo and want to take the delivery order and gate pass as authorized by the consignee.
+    </p>
+
+    <p align='justify'>
+        We authorize Mr. <b>SYED JUNAID AHMED</b> Holding CNIC no: <b>42201-7116613-7</b> & <b>Mr. SYED RIZWAN ABBAS</b> S/o <b>Mr. SYED ABBAS</b> Bearing CNIC No. <b>42201-7871975-3</b> to take the delivery order on our behalf for the consignee.
+    </p>
+
+    <p align='justify'>
+        Also we do hereby solemnly undertake and confirm that we the nominated Clearing Agent of the consignee shall be responsible and liable of all consequences if any Government Authority, raise any objection in this regard.
+    </p>
+    <br><br>
+    <p>
+        Yours Faithfully,
+    </p>
+    <br>
+    <p>Company Name: <b>{{job.client}}</b></p>
+    <br>
+    <p>Company Stamp</p>
+    <br><br>
+    <p>Signature</p>
+</body>
+
+</html>

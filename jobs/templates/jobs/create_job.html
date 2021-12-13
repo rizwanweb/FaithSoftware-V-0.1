@@ -1,0 +1,351 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block title %}Add New Job{% endblock title %}
+
+
+{% block content %}
+<style>
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
+<br>
+<div class="form-group">
+  <form class="row g-3 form-inline" action="" method="POST">
+    {% csrf_token %}
+    <div class="col-md-12 text-center">
+      <h1>Job Details</h1>
+    </div>
+    <div class="col-md-1">
+      <label for="id_jobNo" class="form-label">Job No</label>
+      {% render_field form.jobNo class="form-control"%}
+        {{form.errors.jobNo}}
+    </div>
+
+    <div class="col-md-2">
+      <label for="id_jobDate" class="form-label">Job Date</label>
+      {% render_field form.jobDate|attr:"data-mask:00-00-0000" placeholder="dd-mm-yyyy" class="form-control date" %}
+    </div>
+
+    <div class="col-9">
+      <label for="id_client" class="form-label">Client</label>
+      {% render_field form.client class="form-control"%}
+    </div>
+    
+    <div class="col-1">
+      <label for="id_packages" class="form-label">Container(s)</label>
+      {% render_field form.containers class="form-control"%}
+    </div>
+    
+    <div class="col-1">
+      <label for="id_packages" class="form-label">Size</label>
+      {% render_field form.size class="form-control"%}
+    </div>
+    <div class="col-4">
+      <label for="id_packages" class="form-label">Packages</label>
+      {% render_field form.packages class="form-control"%}
+    </div>
+
+    <div class="col-3">
+      <label for="id_item" class="form-label">Item</label>
+      {% render_field form.item class="form-control"%}
+    </div>
+
+    <div class="col-3">
+      <label for="id_item" class="form-label">Description</label>
+      {% render_field form.description class="form-control"%}
+    </div>
+
+    <div class="col-3">
+      <label for="id_vessel" class="form-label">Vessel</label>
+      {% render_field form.vessel class="form-control"%}
+    </div>
+
+    <div class="col-3">
+      <label for="id_igm" class="form-label">IGM #</label>
+      {% render_field form.igm class="form-control"%}
+    </div>
+
+    <div class="col-3">
+      <label for="id_igmDate" class="form-label">Date</label>
+      {% render_field form.igmDate|attr:"data-mask:00-00-0000" placeholder="dd-mm-yyyy" class="form-control"%}
+    </div>
+
+    <div class="col-3">
+      <label for="id_index" class="form-label">Index #</label>
+      {% render_field form.index class="form-control"%}
+    </div>
+
+    <div class="col-3">
+      <label for="id_lc" class="form-label">L/C</label>
+      {% render_field form.lc class="form-control"%}
+    </div>
+
+    <div class="col-3">
+      <label for="id_lcDate" class="form-label">Date</label>
+      {% render_field form.lcDate|attr:"data-mask:00-00-0000" placeholder="dd-mm-yyyy" class="form-control"%}
+    </div>
+
+    <div class="col-3">
+      <label for="id_bl" class="form-label">Bill of Lading</label>
+      {% render_field form.bl class="form-control"%}
+    </div>
+
+    <div class="col-3">
+      <label for="id_blDate" class="form-label">Date</label>
+      {% render_field form.blDate|attr:"data-mask:00-00-0000" placeholder="dd-mm-yyyy" class="form-control"%}
+    </div>
+
+    <div class="text-center">
+      <h1>Calculation</h1>
+    </div>
+
+
+    <div class="col-2">
+      <label for="id_dv" class="form-label">Declare Value</label>
+      {% render_field form.dv class="form-control"%}
+    </div>
+
+    <div class="col-2">
+      <label for="id_quantity" class="form-label">Quantity</label>
+      {% render_field form.quantity class="form-control"%}
+    </div>
+
+    <div class="col-2">
+      <label for="id_importValue" class="form-label">Import Value $</label>
+      {% render_field form.importValueUSD|attr:"readonly" class="form-control" %}
+    </div>
+
+    <div class="col-2">
+      <label for="id_exRate" class="form-label">Exchange Rate</label>
+      {% render_field form.exRate class="form-control"%}
+    </div>
+
+    <div class="col-4">
+      <label for="id_pkr" class="form-label">Import Value (PKR)</label>
+      {% render_field form.pkr|attr:"readonly" class="form-control"%}
+    </div>
+
+    <div class="col-sm-2">
+      <label for="id_insurance" class="form-label">Insurance</label>
+    </div>
+
+    <div class="col-sm-2">
+      {% render_field form.insurance class="form-control"%}
+    </div>
+
+    <div class="col-sm-1">
+      <label for="" class="form-label lg"></label>
+    </div>
+
+    <div class="col-sm-2">
+      <label for="" class="form-label">Custom Duty</label>
+    </div>
+    <div class="col-sm-1">
+      {% render_field form.dutyType class="form-control"%}
+    </div>
+    <div class="col-sm-1">
+      {% render_field form.rateOfDuty class="form-control"%}
+    </div>
+    <div class="col-sm-3">
+      {% render_field form.customDuty|attr:"readonly" class="form-control"%}
+    </div>
+
+    <div class="col-sm-2">
+      <label for="id_landingCharges" class="form-label">Landing Charges</label>
+    </div>
+
+    <div class="col-sm-2">
+      {% render_field form.landingCharges|attr:"readonly" class="form-control"%}
+    </div>
+
+    <div class="col-sm-1">
+      <label for="id_landingCharges" class="form-label"></label>
+    </div>
+
+    <div class="col-sm-2">
+      <label for="id_landingCharges" class="form-label">Add Custom Duty</label>
+    </div>
+
+    <div class="col-sm-1">
+      {% render_field form.rateOfAddDuty class="form-control"%}
+    </div>
+    <div class="col-sm-4">
+      {% render_field form.addCustomDuty|attr:"readonly" class="form-control"%}
+    </div>
+
+    <div class="col-sm-2">
+      <label for="id_landingCharges" class="form-label">Import Value</label>
+    </div>
+
+    <div class="col-sm-2">
+      {% render_field form.importValue|attr:"readonly" class="form-control"%}
+    </div>
+
+    <div class="col-sm-1">
+      <label class="form-label"></label>
+    </div>
+
+    <div class="col-sm-2">
+      <label for="id_landingCharges" class="form-label">Sales Tax</label>
+    </div>
+    <div class="col-sm-1">
+      {% render_field form.rateOfST class="form-control"%}
+    </div>
+    <div class="col-sm-4">
+      {% render_field form.salesTax|attr:"readonly" class="form-control"%}
+    </div>
+    
+    <div class="col-sm-2">
+      <label for="id_landingCharges" class="form-label">Excise</label>
+    </div>
+    <div class="col-2">
+      {% render_field form.excise class="form-control"%}
+    </div>
+
+    <div class="col-1">
+      
+    </div>
+    <div class="col-sm-2">
+      <label for="id_" class="form-label">Income Tax</label>
+    </div>
+    <div class="col-sm-1">
+      {% render_field form.rateOfIT class="form-control"%}
+    </div>
+    <div class="col-sm-4">
+      {% render_field form.incomeTax|attr:"readonly" class="form-control"%}
+    </div>
+
+    <div class="col-sm-5">
+    </div>
+    <div class="col-sm-2">
+      <label for="" class="form-label">CESS</label>
+    </div>
+    <div class="col-sm-1">
+      {% render_field form.rateOfCess class="form-control"%}
+    </div>
+    <div class="col-sm-4">
+      {% render_field form.cess class="form-control"%}
+    </div>
+    
+    <div class="col-sm-5">
+    </div>
+    <div class="col-sm-2">
+      <label for="" class="form-label">RD</label>
+    </div>
+    <div class="col-sm-1">
+      {% render_field form.rateOfRD class="form-control"%}
+    </div>
+    <div class="col-sm-4">
+      {% render_field form.rd class="form-control"%}
+    </div>
+    
+    <div class="col-sm-5">
+    </div>
+    <div class="col-sm-2">
+      <label for="" class="form-label">Anti Dumping</label>
+    </div>
+    <div class="col-sm-1">
+      {% render_field form.rateOfAD class="form-control"%}
+    </div>
+    <div class="col-sm-4">
+      {% render_field form.antiDumping class="form-control"%}
+    </div>
+
+
+
+    <div class="col-sm-5">
+    </div>
+    <div class="col-sm-2">
+    <label for="" class="form-label">Total</label>
+    </div>
+
+    <div class="col-sm-5">
+      {% render_field form.total|attr:"readonly" class="form-control"%}
+    </div>
+
+
+
+    <div class="col-3">
+      <label for="id_terminal" class="form-label">Terminal Wharfage</label>
+      {% render_field form.terminalCharges class="form-control"%}
+    </div>
+
+    <div class="col-3">
+      <label for="id_do" class="form-label">Delivery Order</label>
+      {% render_field form.do class="form-control"%}
+    </div>
+
+    <div class="col-2">
+      <label for="id_lolo" class="form-label">Container Deposit</label>
+      {% render_field form.deposit class="form-control"%}
+    </div>
+
+    <div class="col-2">
+      <label for="id_lolo" class="form-label">Advance Rent</label>
+      {% render_field form.advanceRent class="form-control"%}
+    </div>
+
+    <div class="col-2">
+      <label for="id_do" class="form-label">Terminal</label>
+      {% render_field form.terminal class="form-control"%}
+    </div>
+
+    <div class="col-3">
+      <label for="id_lolo" class="form-label">Shipping Line</label>
+      {% render_field form.shipping class="form-control"%}
+    </div>
+
+    <div class="col-3">
+      <label for="id_lolo" class="form-label">Shipping Line LOLO</label>
+      {% render_field form.lolo class="form-control"%}
+    </div>
+
+    <div class="col-3">
+      <label for="id_lolo" class="form-label">LOLO Charges</label>
+      {% render_field form.loloCharges class="form-control"%}
+    </div>
+
+    <div class="col-3">
+      <label for="" class="form-label">Faith Check</label>
+      {% render_field form.faithCheck class="form-control"%}
+    </div>
+
+    <hr>
+    <div class="d-flex justify-content-between">
+      <input class="btn btn-primary btn-outline" type="submit" value="Save">
+      <a href="" class="btn btn-danger btn-lg" type="">DELETE</a>
+      <a href="" class="btn btn-warning btn-lg" type="">CLEAR</a>
+      <a href="" class="btn btn-info btn-lg" type="">PRINT</a>
+    </div>
+
+  </form>
+
+</div>
+
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/dutycalculation.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+
+
+{% endblock content %}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <style type="text/css">
+        @page {
+            size: letter portrait;
+            margin: 1cm;
+            margin-top: 3cm;
+        }
+
+        body {
+            font-size: 12px;
+        }
+
+        h1 {
+            font-size: 36px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<center><b>UNDERTAKING OF CY CONTAINER</b></center>
+
+<br><br>
+<table style="width: 60%">
+    <tr>
+        <td style="width: 20%">VESSEL:</td>
+        <td style="width: 25%"><b>{{job.vessel}}</b></td>
+        <td style="width: 20%">VOY:</td>
+        <td style="width: 30%">___________ INDEX: <b>{{job.index}}</b></td>
+    </tr>
+    <tr>
+        <td>ARRIVAL DATE: </td>
+        <td><b>{{job.igmDate}}</b></td>
+        <td>B/L:</td>
+        <td><b>{{job.bl}}</b></td>
+    </tr>
+    <tr>
+        <td>CONTAINER NOs: </td>
+        <td><b>AS PER BL</b></td>
+        <td>NOTIFY PARTY:</td>
+        <td><b>{{job.client}}</b></td>
+    </tr>
+    <tr>
+        <td>PORT OF LODING: </td>
+        <td><b></b></td>
+        <td>PORT OF DISCHARGE:</td>
+        <td><b>{{job.terminal}}</b></td>
+    </tr>
+</table>
+
+<p align='justify'>
+In consideration of obtaining delivery of the above mentioned containers along with goods therein cleared by us for de stuffing at Consignees premises situated at Karachi . We consignee / clearing agent herby undertake and guarantee to return the empty container/s within 2 days in the same sound condition / form as received by us from the terminal and further confirm that we will de-stuff the unit/s immediately and will not use this / these container/s as storage unit at our site or will not lodge this unit in any bounded warehouse.
+</p>
+
+<ul>
+<p align='justify'>
+1. We will return empty container to the carrier's nominated container empty yard within 2 days from the date of Gate pass in sound condition as received by us from the terminal and in case of any damage sustained by the container by whatever reason or is lost during the time the container is in our custody, we accept full responsibility for the same and undertake to pay damage charges  / full cost of the container as determined by the carrier.
+</p>
+
+<p align='justify'>
+2. We will notify you and Shipping line in writing if this container is retained by us beyond the period as stated in paragraph 1 above within Three days from the expiry of this period and pay in advance further security deposit / detention sufficient to cover in full detention dues accruing for the additional period container are expected to stay with us, or any other amount / charges as demanded by the shipping line.
+</p>
+
+<p align='justify'>
+3. We undertake to pay in full detention charges / rent / cleaning and repair costs if any, in respect of above stated container accrued as per carrier`s detention charges tariff / schedule within seven (7) days from the date containers returned. 
+</p>
+
+<p align='justify'>
+4. We also accept responsibility and agree to indemnify you against all costs, duty, sales tax, fine, penalties, if any, imposed by the Port / Custom Authorities / FIA or any Government Agencies due to our moving container from the port area for de-stuffing at our premises / destination place. Also we are responsible for any misdeclaration and found confiscated cargo therein.
+</p>
+
+<p align='justify'>
+5. We jointly and severally stand and liable to comply with all above terms and in case of non compliance to all or any these terms, undertake to indemnity and bear all costs, charges and losses suffered by you or Shipping line.
+</p>
+
+<p align='justify'>
+6. We further authorize you / Shipping line and declare that you / Shipping line, at your sole discretion and without any notice, can apply / adjust any amount paid by all or any of us, against this or any other Bill Of Lading, on account of security deposit or any other account, against detention charges, container damage changes, losses or any other cost and charges incurred by you in connection with above noted container remaining unpaid for more than 10 days from the date of invoice. We also agree and accept your / Shipping Line Lien / claim on our future shipment and authorize you / Shipping line to hold delivery of the same until the time, all charges and costs due to you / Shipping Line in respect of above noted consignment are fully paid.
+</p>
+
+<p align='justify'>
+7. We also undertake that in-case of Reefer container/s, we will pay all plugging charges as per tariff.
+</p>
+
+<p align='justify'>
+8. We herewith undertake to indemnify you / Shipping Line for any short or excess.
+</p>
+</ul>
+<p>
+For: <b>FAITH ASSOCIATES</b>
+</p>
+
+<p>
+Dated: {% now "d-m-Y" %}
+</p>
+<table style="border: 1px solid black">
+<tr>
+<td style="align: right"><b>CONSIGNEE</b></td>
+<td><p align='right'><b>CLEARING AGENT</b></p></td>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block title %}Job Listing{% endblock title %}
+
+{% block content %}
+
+<!--Refund Modal-->
+
+<div class="modal fade" id="refundModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Refund</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="" class="form-label">Job#</label>
+            {% render_field itemform.name class="form-control" %}
+          </div>
+
+          <div class="mb-3">
+            <label for="" class="form-label">HS.Code</label>
+            {% render_field itemform.hscode class="form-control"%}
+          </div>
+
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!---->
+
+<h1 class="text-center">Refunds List</h1>
+<br>
+<form class="" action="" method="get">
+
+<center><div class="form-row"> 
+            {{jobFilter.form}}
+            <button class="btn btn-primary" type="submit">Search</button>
+</div>
+</center>
+            
+</form>
+
+<br>
+<table class="table table-striped align-middle" style="font-size: 13px;">
+    <tr>
+        <td colspan="9"><a class="btn btn-primary btn-lg d-grid gap-3 col-6 mx-auto"
+                href="{% url 'create_job' %}">Create New Job</a></td>
+    </tr>
+    <tr>
+        <th></th>
+        <th>Job No</th>
+        <th>Dated</th>
+        <th>Client</th>
+        
+        <th>Packages</th>
+        <th>Shipping Line</th>
+        <th>Deposit</th>
+        <th>Refund Amount</th>
+        <th>Due Date</th>
+    </tr>
+    
+    <tr>
+        {% for j in object_list %}
+        <td><a class="btn btn-info btn-sm" href="{% url 'edit_job' j.id %}">Edit</a></td>
+        <td>{{j.job.jobNo}}</td>
+        <td>{{j.job.jobDate|date:'d-m-Y'}}</td>
+        <td>{{j.job.client}}</td>
+        
+        {% if j.job.containers %}
+            <td>{{j.job.containers}}X{{j.job.size}} CONT {{j.job.packages}}</td>
+        {% else %}
+            <td>{{j.job.packages}}</td>
+        {% endif %}
+
+        <td>{{j.job.shipping}}</td>
+        <td>PKR. {{j.job.deposit}}</td>
+        <td>PKR. {{j.refundAmount}}</td>
+        <td>{{j.dueDate|date:'d-m-Y'}}</td>
+        <td>
+            <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-primary dropdown-toggle"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Actions
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <li><a class="dropdown-item" href="{% url 'calculationsheet' j.id %}">Print Calculation Sheet</a></li>
+                    <li><a class="dropdown-item" href="{% url 'job_refund' j.id %}">Add Refund Info</a></li>
+                    <li><a class="dropdown-item" href="#">Something</a></li>
+                    <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<div>
+    <span>
+        {% if page_obj.has_previous %}
+            <a href="?page={{page_obj.previous_page_number}}">Previous</a>
+        {% endif %}
+        <span>{{ page_obj.number }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{page_obj.next_page_number}}">Next</a>
+        {% endif %}
+
+    </span>
+</div>
+
+
+<script src="{% static 'js/jquery.js' %}"></script>
+
+{% endblock content %}

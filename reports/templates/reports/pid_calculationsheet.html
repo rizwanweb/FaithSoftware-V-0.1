@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Calculation Sheet</title>
+
+    <style type="text/css">
+        @page {
+            size: letter portrait;
+            margin: 1cm;
+        }
+        body {
+            font-size: 12px;
+        }
+        h1 {
+            font-size: 36px;
+            text-align: center;
+        }
+        #job {
+            font-weight: bold;
+            text-align: left;
+        }
+        #date {
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .ratetd {
+            width: 10%;
+            text-align: right;
+            font-weight: bold;
+        }
+        .jobAmount {
+            width: 15%;
+            text-align: right;
+            font-weight: bold;
+        }
+        .payorder {
+            width: 50%;
+            padding-left: 20px;
+        }
+        
+
+    </style>
+</head>
+
+<body>
+
+
+
+    <h1 class="">Faith Associates</h1>
+
+    <table style="width: 100%;">
+        <tr >
+            <td style="width: 80%; font-size: 13px;"><span id="job">PID: {{job.PIDNo}}/21</span></td>
+            <td style="width: 20%;"><span id=" date" style="font-weight: bold; text-align: end;">Dated:{{job.Date|date:'d-m-Y'}}</span></td>
+        </tr>
+    </table>
+    <br>
+
+    <table>
+        <tr>
+            <td>
+                <p style="font-weight: bold;"> M/s.{{job.client}}</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p style="text-decoration: underline;font-weight: bold;">{{job.client.city}}</p>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <p style="font-weight: bold;"> ATTN:&emsp;{{job.client.person}}</p>
+            </td>
+        </tr>
+    </table>
+    <br>
+
+
+
+    <table style="padding-left: 10px; font-size: 10px;">
+        <tr style="height: 25px;">
+            <td style="width: 100px;"><p>L/C NO.</p></td>
+            <td style="width: 250px;"><p style="font-weight: bold;">{{job.lc}}</p></td>
+            <td><p style="font-size: 10px;">B/L NO.</p></td>
+            <td><p style="font-weight: bold;">{{job.bl}}</p></td>
+        </tr>
+
+        <tr style="height: 25px;">
+            <td><p>PACKAGES</p></td>
+            <td style="width: 325px;"><p style="font-weight: bold;">{% if job.containers > 0 %}{{job.containers}}X{{job.size}} CONT STC {{job.packages}} {% else %} {{job.packages}} {% endif %}</p></td>
+            <td style="width: 125px;"><p>DESCRIPTION</p></td>
+            <td><p style="font-weight: bold;">{{job.item}}</p></td>
+        </tr>
+
+        <tr style="height: 25px;">
+            <td><p>VESSEL</p></td>
+            <td><p style="font-weight: bold;">{{job.vessel}}</p></td>
+            <td><p>ARRIVED</p></td>
+            <td><p style="font-weight: bold;">{{job.igmDate|date:'d-m-Y'}}</p></td>
+        </tr>
+
+        <tr style="height: 25px;">
+            <td><p>QUANTITY</p></td>
+            <td><p style="font-weight: bold;">{{job.quantity}} KGS</p></td>
+        </tr>
+    </table>
+
+    <hr>
+    <p style="text-align: center; font-size: 17px; font-weight: bolder;">CALCULATION</p>
+    <p style="text-align: center; font-weight: bold; font-size: 12px;">You are requested to kindly check and if you are
+        satisfied with the duty structure then please send the following payments</p>
+
+    <table style="margin: 10px; width: 100%;">
+        <tr></tr>
+        <tr>
+            <td style="width: 30%; text-align: left;"><p>INVOICE VALUE</p></td>
+            <td class="jobAmount"><p>{{job.importValueUSD}}</p></td>
+            <td style="width: 30%; text-align: right;"><p class="">CUSTOM DUTY</p></td>
+            {% if job.customDuty %}
+            <td style="width: 10%; text-align: right;"><p style="font-weight: bold;">{{job.rateOfDuty}} %</p></td>
+            <td style="width: 15%;"><p style="font-weight: bold; text-align: right; padding-right: 10px;">{{job.customDuty}}</p></td>
+            
+            {% else %}
+            <td style="width: 10%; text-align: right;"><p style="font-weight: bold;">0</p></td>
+            <td style="width: 15%;"><p style="font-weight: bold; text-align: right; padding-right: 10px;">0</p></td>
+            {% endif %}
+        </tr>
+
+        <tr>
+            <td><p>EXCHAGE RATE</p></td>
+            <td class="jobAmount"><p>{{job.exRate}}</p></td>
+            <td style="text-align: right;"><p>ADD CUSTOM DUTY</p></td>
+            {% if job.addCustomDuty %}
+            <td class="ratetd"><p>{{job.rateOfAddDuty}} %</p></td>
+            <td><p style="font-weight: bold; text-align: right; padding-right: 10px;">{{job.addCustomDuty}}</p></td>          
+            {% else %}
+            <td class="ratetd"><p>0</p></td>
+            <td><p style="font-weight: bold; text-align: right; padding-right: 10px;">0</p></td>            
+            {% endif %}
+
+        </tr>
+
+
+        <tr>
+            <td><p>INSURANCE</p></td>
+            <td class="jobAmount"><p>{{job.insurance}}</p></td>
+            <td style="text-align: right;"><p>SALES TAX</p></td>
+            {% if job.salesTax %}
+            <td class="ratetd"><p>{{job.rateOfST}} %</p></td>
+            <td><p style="font-weight: bold; text-align: right; padding-right: 10px;">{{job.salesTax}}</p></td>            
+            {% else %}
+            <td class="ratetd"><p>0</p></td>
+            <td><p style="font-weight: bold; text-align: right; padding-right: 10px;">0</p></td>           
+            {% endif %}
+
+        </tr>
+
+        <tr>
+            <td><p>LANDING CHARGES</p></td>
+            <td class="jobAmount"><p>{{job.landingCharges}}</p></td>
+            <td style="text-align: right;"><p>INCOME TAX</p></td>
+            {% if job.incomeTax %}
+            <td class="ratetd"><p>{{job.rateOfIT}} %</p></td>
+            <td><p style="font-weight: bold; text-align: right; padding-right: 10px;">{{job.incomeTax}}</p></td>           
+            {% else %}
+            <td class="ratetd"><p>0</p></td>
+            <td><p style="font-weight: bold; text-align: right; padding-right: 10px;">0</p></td>
+            {% endif %}
+        </tr>
+
+        <tr>
+            <td><p>IMPORT VALUE</p></td>
+            <td class="jobAmount"><p>{{job.importValue}}</p></td>
+            {% if job.rd %}
+            <td style="text-align: right;"><p>Cess</p></td>
+            <td class="ratetd"><p>{{job.rateOfCess}} %</p></td>
+            <td><p style="font-weight: bold; text-align: right; padding-right: 10px;">{{job.cess}}</p></td>
+            {% endif %}
+        </tr>
+
+        {% if job.rd %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="text-align: right;"><p>RD</p</td>
+            <td class="ratetd"><p>{{job.rateOfRD}} %</p></td>
+            <td><p style="font-weight: bold; text-align: right; padding-right: 10px;">{{job.rd}}</p></td>
+        </tr>
+        {% endif %}
+
+        {% if job.antiDumping %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="text-align: right;"><p>Anti Dumping</p></td>
+            <td class="ratetd"><p>{{job.rateOfAD}} %</p></td>
+            <td><p style="font-weight: bold; text-align: right; padding-right: 10px;">{{job.antiDumping}}</p></td>
+        </tr>
+        {% endif %}
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="text-align: right;"><p>TOTAL</p></td>
+            <td></td>
+            <td><p style="font-weight: bold; text-align: right; padding-right: 10px;">{{job.total}}</p></td>
+        </tr>
+    </table>
+
+    <br>
+    <table style=" font-size: 11px;">
+    {% if job.total > 0 %}
+        <tr style="height: 35px;">
+            <td style="margin-left: 10px; font-weight: bold; width: 30%;">CUSTOM DUTY</td>
+            <td style="padding-left: 10px; text-align: left; font-weight: bold; width: 20%;">{{job.total}}</td>
+            <td  class="payorder">
+                <span>Collector Of Customs</span><br>
+                <span style="font-size: 11px;">A/c {{job.client}} NTN# {{job.client.NTN}}</span>
+            </td>
+        </tr>
+    {% endif %}
+
+        {% if job.excise %}
+        <tr style="height: 35px;">
+            <td style="margin-left: 10px; font-weight: bold;">EXCISE DUTY</td>
+            <td style="padding-left: 10px; text-align: left; font-weight: bold; width: 20%;">{{job.excise}}</td>
+            <td class="payorder">
+                <strong>Excise & Taxation Officer Seadues Karachi.</strong> <br>
+                <span style="font-size: 12px;">A/c {{job.client}} NTN# {{job.client.NTN}}</span>
+            </td>
+        </tr>
+        {% endif %}
+
+
+        {% if job.do %}
+        <tr style="height: 35px;">
+            <td style="margin-left: 10px; font-weight: bold;">DELIVERY ORDER </td>
+            <td style="padding-left: 10px; text-align: left; font-weight: bold; width: 20%;">{{job.do}}</td>
+            <td class="payorder">
+                <strong>{{job.shipping}}</strong> <br>
+                <span style="font-size: 11px;">A/c {{job.client}} NTN# {{job.client.NTN}}</span>
+            </td>
+        </tr>
+        {% endif %}
+
+
+        {% if job.terminalCharges %}
+        <tr style="height: 35px;">
+            <td style="margin-left: 10px; font-weight: bold;">{{job.terminal.shortname}} WHARFAGE</td>
+            <td style="padding-left: 10px; text-align: left; font-weight: bold; width: 20%;">{{job.terminalCharges}}</td>
+            <td class="payorder">
+                <strong>{{job.terminal.name}}</strong> <br>
+                <span style="font-size: 11px;">A/c {{job.client}} NTN# {{job.client.NTN}}</span>
+            </td>
+        </tr>
+        {% endif %}
+
+
+        {% if job.deposit %}
+        <tr style="height: 35px;">
+            <td style="margin-left: 10px; font-weight: bold;">CONTAINER DEPOSIT</td>
+            <td style="padding-left: 10px; text-align: left; font-weight: bold; width: 20%;">{{job.deposit}}</td>
+            <td class="payorder">
+                <strong>{{job.shipping}}</strong> <br>
+                <span>A/c {{job.client}} NTN# {{job.client.NTN}}</span>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if job.advanceRent %}
+        <tr style="height: 35px;">
+            <td style="margin-left: 10px; font-weight: bold;">ADVANCE RENT</td>
+            <td style="padding-left: 10px; text-align: left; font-weight: bold; width: 20%;">{{job.advanceRent}}</td>
+            <td class="payorder">
+                <strong>{{job.shipping}}</strong> <br>
+                <span>A/c {{job.client}} NTN# {{job.client.NTN}}</span>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if job.loloCharges %}
+        <tr style="height: 35px; margin: 5px;">
+            <td style="margin-left: 10px; font-weight: bold;">LoLo Charges</td>
+            <td style="padding-left: 10px; text-align: left; font-weight: bold; width: 20%;">{{job.loloCharges}}</td>
+            <td style="width: 10%;"> sdf</td>
+            <td class="payorder">
+                <strong>{{job.lolo.name}}</strong><br>
+                <span style="font-size: 11px;">A/c {{job.client}} NTN# {{job.client.NTN}}</span>
+            </td>
+        </tr>
+        {% endif %}
+
+
+    </table>
+</body>
+
+</html>

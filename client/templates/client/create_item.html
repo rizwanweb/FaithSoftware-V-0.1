@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block title %}Item Creation Form{% endblock title %}
+
+{% block content %} 
+
+<form class="form-control">
+{% csrf_token %}
+  <div class="mb-3">
+    <label for="" class="form-label">Item Description</label>
+    {% render_field form.name class="form-control"%}
+  </div>
+
+  <div class="mb-3">
+    <label for="" class="form-label">HS.Code</label>
+    {% render_field form.hscode class="form-control"%}
+  </div>
+  <button type="submit" class="btn btn-primary">Save</button>
+  
+</form>
+
+{% endblock content %}

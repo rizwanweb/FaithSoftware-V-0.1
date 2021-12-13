@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+<center><h1>Headers</h1></center>
+<form class="form-contro" action="" method="post">
+{% for form in form %}
+    <div class="col-5">
+    {% render_field form.title class="form-control"%}
+    </div>
+{% endfor %}
+<br>
+<button type="submit">Submit</button>
+</form>
+{% endblock content %}

@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+
+<br>
+<h1 class="text-center">Create New Bill</h1>
+
+<div class="form-group">
+  <form class="row g-3 form-inline" action="" method="POST">
+    {% csrf_token %}
+
+    <div class="col-md-3">
+      <label for="id_jobNo" class="form-label">PID#:</label>
+      {{job.PIDNo}}
+    </div>
+
+    <div class="col-md-3">
+      <label for="id_jobDate" class="form-label">Date:</label>
+      {{job.Date|date:'d-m-Y'}}
+    </div>
+
+    <div class="col-md-5">
+      <label for="id_client" class="form-label">Client:</label>
+      {{job.client}}
+    </div>
+
+    {% if job.containers %}
+      <div class="col-6">
+      <label for="id_packages" class="form-label">Packages:</label>
+      {{job.containers}}X{{job.size}} CONT STC {{job.packages}}
+      </div>
+    {% else %}
+      <label for="id_packages" class="form-label">Packages:</label>
+      {{job.packages}}
+      </div>
+    {% endif %}
+
+    <div class="col-6">
+      <label for="id_item" class="form-label">Description:</label>
+      {{job.item}}
+    </div>
+
+    <div class="col-3">
+      <label for="id_vessel" class="form-label">Vessel:</label>
+      {{job.vessel}}
+    </div>
+
+    <div class="col-3">
+      <label for="id_igm" class="form-label">IGM#:</label>
+      {{job.igm}}
+    </div>
+
+    <div class="col-3">
+      <label for="id_igmDate" class="form-label">Date:</label>
+      {{job.igmDate|date:'d-m-Y'}}
+    </div>
+
+    <div class="col-3">
+      <label for="id_index" class="form-label">Index#:</label>
+      {{job.index}}
+    </div>
+
+    <div class="col-3">
+      <label for="id_lc" class="form-label">L/C #:</label>
+      {{job.lc}}
+    </div>
+
+    <div class="col-3">
+      <label for="id_lcDate" class="form-label">Date:</label>
+      {{job.lcDate|date:'d-m-Y'}}
+    </div>
+
+    <div class="col-3">
+      <label for="id_bl" class="form-label">Bill of Lading:</label>
+      {{job.bl}}
+    </div>
+
+    <div class="col-3">
+      <label for="id_blDate" class="form-label">Date:</label>
+      {{job.blDate|date:'d-m-Y'}}
+    </div>
+<br>
+<br>
+<br>
+<br>
+<hr>
+<div class="row">
+
+    <div class="col-1">
+        <label for="" class="form-label">Bill No:</label>
+        {% render_field bf.pidbillNo|attr:"readonly" class="form-control" %}
+    </div>
+
+    <div class="col-2">
+        <label for="" class="form-label">Bill Date:</label>
+        {% render_field bf.billDate|attr:"data-mask:00-00-0000" placeholder="dd-mm-yyyy" class="form-control date"%}
+    </div>
+    
+    <div class="col-2">
+      <label for="" class="form-label">G.D #:</label>
+      {% render_field bf.gdNo class="form-control"%}
+    </div>
+
+        <div class="col-2">
+      <label for="" class="form-label">GD # Date:</label>
+      {% render_field bf.gdNoDate|attr:"data-mask:00-00-0000" placeholder="dd-mm-yyyy" class="form-control date"%}
+    </div>
+
+        <div class="col-2">
+      <label for="" class="form-label">Cash #:</label>
+      {% render_field bf.cashNo class="form-control"%}
+    </div>
+
+        <div class="col-2">
+      <label for="" class="form-label">Cash # Date:</label>
+      {% render_field bf.cashNoDate|attr:"data-mask:00-00-0000" placeholder="dd-mm-yyyy" class="form-control date"%}
+    </div>
+  </div>
+
+    <div>
+      <form id="header-form" action="" method="post">
+        {% csrf_token %}
+        {% for hidden in formset.hidden_fields %}
+        {{ hidden }}
+        {% endfor %}
+        {{ formset.management_form }}
+        <div class="overflow-scroll" style="height: 500px;">
+          <table id="header-table" class="table align-content-center fs-5 table-info">
+          <thead>
+            <tr>
+              <th class="col-0"></th>
+              <th class="col-6 text-center">Particular</th>
+              <th class="col-2 text-center">Reciept #</th>
+              <th class="col-2 text-center">Debit</th>
+              <th class="col-2 text-center">Credit</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for form in formset %}
+            <tr>
+              <td class="hidden">{{ form.id }}</td>
+              <td>
+                <div>{% render_field form.title class="form-control " %}</div>
+              </td>
+
+              <td class="">
+                <div class="">{% render_field form.reciept class="form-control "%}</div>
+              </td>
+
+              <td>
+                <div class="">{% render_field form.byYou class="form-control  text-end"%}</div>
+              </td>
+              <td>
+                <div class="">{% render_field form.byUs class="form-control text-end by-us"%}</div>
+              </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <br>
+
+
+        <table class="table">
+          <tr>
+            <th class="col-5"></th>
+            <th></th>
+            <th class="col-2"></th>
+            <th class="col-2"></th>
+            <th class="col-md-2"></th>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total Expense</td>
+            <td>{% render_field bf.totalCharges class="form-control text-end" %}</td>
+          </tr>
+          
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Cash Refund</td>
+            <td>{% render_field bf.cashRefund class="form-control text-end my-calc" %}</td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Balance</td>
+            <td>{% render_field bf.grossBalance class="form-control text-end my-calc" %}</td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Party Advance</td>
+            <td>{% render_field bf.advance class="form-control text-end my-calc" %}</td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Net Balance</td>
+            <td>{% render_field bf.netBalance class="form-control text-end my-calc" %}</td>
+          </tr>
+
+
+
+        </table>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+    </div>
+
+
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/pidcalculation.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+
+<script>
+
+$(document).ready(function () {
+      $(".my-calc").on('input', function(){
+        var refund = parseInt($("#id_cashRefund").val())
+        var total = parseInt($("#id_totalCharges").val())
+        console.log(refund)
+        var grossBalance = total - refund;
+        $("#id_grossBalance").val(grossBalance)
+        var advance = parseInt($("#id_advance").val())
+        $("#id_netBalance").val(grossBalance - advance)
+    })
+})
+
+
+</script>
+
+
+{% endblock content %}
