@@ -3,6 +3,19 @@ import datetime
 
 # Create your models here.
 
+class Company(models.Model):
+    name = models.CharField(max_length=200)
+    challanNo = models.CharField(max_length=10)
+    email = models.EmailField(null=True, blank=True)
+    phone1 = models.CharField(max_length=50, null=True, blank=True)
+    phone2 = models.CharField(max_length=50, null=True, blank=True)
+    address1 = models.CharField(max_length=200)
+    address2 = models.CharField(max_length=200, null=True, blank=True)
+    city = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return self.name +" - "+self.challanNo
+
 #Item Object
 class Item(models.Model):
 
