@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from .models import Company
 from refund.models import JobRefund, PidRefund
 from jobs.models import Job, PID
 from client.models import Client
@@ -39,6 +40,7 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def home(request):
+    company = Company.objects.all()
     recentJobs = Job.objects.all().order_by('-id')[:5]
     recentPids = PID.objects.all().order_by('-id')[:5]
     jobs = Job.objects.all()
@@ -53,6 +55,7 @@ def home(request):
     
 
     context = {
+        'company': company,
         'clients': clients,
         'recentJobs': recentJobs,
         'recentPids': recentPids,

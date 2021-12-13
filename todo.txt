@@ -1,0 +1,9 @@
+---NEW ADDITIONS---
+create company model {cm:2021-12-13}
+change templates to company model
+add supplimentry bill module
+Shipping Companies D/O and undertakings
+add Homepage according to user
+
+---FIXES---
+add 2psqc payorders to calculation sheet

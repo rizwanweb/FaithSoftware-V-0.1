@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.aggregates import Sum
 from num2words import num2words
 #Model Imports
+from base.models import Company
 from jobs.models import PID, Job
 from client.models import Client
 from billing.models import Bill, Particular, PIDBill, PIDParticular
@@ -16,8 +17,10 @@ from datetime import date, date
 class CalculationSheetPDF(LoginRequiredMixin, View):
     login_url = 'login'
     def get(self, request, pk, *args, **kwargs):
+        co = Company.objects.get(pk=1)
         job = Job.objects.get(id=pk)
         context = {
+            'co': co,
             'job': job
         }
         pdf = render_to_pdf('reports/calculationsheet.html', context)
@@ -27,8 +30,10 @@ class CalculationSheetPDF(LoginRequiredMixin, View):
 class PIDCalculationSheetPDF(LoginRequiredMixin, View):
     login_url = 'login'
     def get(self, request, pk, *args, **kwargs):
+        co = Company.objects.get(pk=1)
         job = PID.objects.get(id=pk)
         context = {
+            'co': co,
             'job': job
         }
         pdf = render_to_pdf('reports/pid_calculationsheet.html', context)
@@ -39,11 +44,13 @@ class PIDCalculationSheetPDF(LoginRequiredMixin, View):
 class JobsReportPDF(LoginRequiredMixin, View):
     login_url = 'login'
     def get(self, request, *args, **kwargs):
+        co = Company.objects.get(pk=1)
         startDate = request.GET['start-date']
         endDate = request.GET['end-date']
         jobs = Job.objects.filter(jobDate__range=[startDate, endDate]).order_by('jobNo')
         
         context = {
+            'co': co,
             'jobs': jobs,
             'startDate': startDate,
             'endDate': endDate,
@@ -55,6 +62,7 @@ class JobsReportPDF(LoginRequiredMixin, View):
 class STReportPDF(LoginRequiredMixin, View):
     login_url = 'login'
     def get(self, request, *args, **kwargs):
+        co = Company.objects.get(pk=1)
         startDate = request.GET['start-date']
         endDate = request.GET['end-date']
         
@@ -64,6 +72,7 @@ class STReportPDF(LoginRequiredMixin, View):
         totalCharges = Bill.objects.filter(billDate__range=[startDate, endDate]).values_list('client').annotate(Sum('charges'),Sum('salesTax'), Sum('totalCharges')).order_by('client')
             
         context = {
+            'co': co,
             'totalCharges':totalCharges,
             'bills': bills,
             'startDate': startDate,
@@ -76,8 +85,10 @@ class STReportPDF(LoginRequiredMixin, View):
 class CalculationSheetPDF(LoginRequiredMixin, View):
     login_url = 'login'
     def get(self, request, pk, *args, **kwargs):
+        co = Company.objects.get(pk=1)
         job = Job.objects.get(id=pk)
         context = {
+            'co': co,
             'job': job
         }
         pdf = render_to_pdf('reports/calculationsheet.html', context)
@@ -86,6 +97,7 @@ class CalculationSheetPDF(LoginRequiredMixin, View):
 class BillReportPDF(LoginRequiredMixin, View):
     login_url = 'login'
     def get(self, request, pk, *args, **kwargs):
+        co = Company.objects.get(pk=1)
         bill = Bill.objects.get(id=pk)
         particulars = Particular.objects.filter(job=bill.job)
         charges = bill.charges
@@ -93,6 +105,7 @@ class BillReportPDF(LoginRequiredMixin, View):
         stTotal = charges + st
         totalInWords = num2words(round(bill.total)).upper()
         context = {
+            'co': co,
             'inwords': totalInWords,
             'bill': bill,
             'p': particulars,
@@ -105,10 +118,12 @@ class BillReportPDF(LoginRequiredMixin, View):
 class PIDBillReportPDF(LoginRequiredMixin, View):
     login_url = 'login'
     def get(self, request, pk, *args, **kwargs):
+        co = Company.objects.get(pk=1)
         bill = PIDBill.objects.get(id=pk)
         particulars = PIDParticular.objects.filter(pid=bill.pid)
     
         context = {
+            'co': co,
             'bill': bill,
             'p': particulars,
         }

@@ -16,30 +16,29 @@
         @page {
             size: letter portrait;
             margin: 2cm;
-        }
+        @font-face {
+            font-family: Markazi;
+            src: url('static/fonts/Markazi.ttf');
+        }       
+            
         body {
-            font-size: 13px;
+            font-size: 16px;
+            font-family: Markazi;
         }
 
-        h1 {
-            font-size: 36px;
-            text-align: center;
-            margin-bottom: 0px;
-        }
-        .header {
-            line-height: 2px;
-        }
+        
     </style>
 </head>
 
 <body>
     <div class="header">
-        <h1>FAITH ASSOCIATES</h1>
-        <center><span style="padding-top: 0px;">Clearing & Forwarding Agent</span></center>
-        <center><span>C.H.A.L No. 1942</span></center>
-        <center><span>Office # 5, Mezzanine Floor, Sutli Plaza, Young Husband Road</span></center>
-        <center><span><u>Kharadar, Karachi</u></span></center>
-        <center><span>Phone # 021-32313948-9</span></center>
+        <center><h1 style="font-size: 36px; margin-bottom: 0px; line-height:5px;">{{co.name}}</h1></center>
+        <center><span style="font-weight: bold;">Clearing & Forwarding Agent</span></center>
+        <center><span style="font-weight: bold;">C.H.A.L No. {{co.challanNo}}</span></center>
+        <center><span style="font-weight: bold;">{{co.address1}}</span></center>
+        <center><span style="font-weight: bold;">{{co.address2}}</span></center>
+        <center><span style=" font-weight: bold;"><u>{{co.city}}</u></span></center>
+        <center><span style="font-weight: bold;">Phone # {{co.phone1}}</span></center>
     </div>
     <hr>
     <center><b><u>DEBIT NOTE FOR REIMBURSABLE EXPENSES</u></b></center>
