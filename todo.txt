@@ -1,4 +1,4 @@
----NEW ADDITIONS---
+---NEW ADDITIONS--- {cm:2021-12-15}
 create company model {cm:2021-12-13}
 change templates to company model
 add supplimentry bill module
@@ -7,3 +7,6 @@ add Homepage according to user
 
 ---FIXES---
 add 2psqc payorders to calculation sheet
+job bill report format {cm:2021-12-15}
+pid bill screen {cm:2021-12-15}
+job bill screen
