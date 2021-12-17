@@ -11,17 +11,17 @@
         @page {
             size: letter portrait;
             margin: 2cm;
-            margin-top: 0cm;
+            margin-top: 0.5cm;
         }
         
         @font-face {
-            font-family: Markazi;
-            src: url('static/fonts/Markazi.ttf');
+            font-family: calibri;
+            src: url('static/fonts/Calibri.ttf');
         }       
         
         body {
-            font-size: 16px;
-            font-family: Markazi;
+            font-size: 15px;
+            font-family: calibri;
         }
         h1 {
             font-size: 36px;
@@ -33,7 +33,7 @@
             paddint-top: 0px;
         }
         .f-14{
-            font-size: 18px;
+            font-size: 15px;
             line-height: 1px;
         }
 
@@ -49,9 +49,10 @@
         <center><span><u>Kharadar, Karachi</u></span></center>
         <center><span>Phone # 021-32313948-9</span></center>
     </div>
-    <hr style="margin-bottom: 1px; margin-top: 0px;">
-    <center><b><u><h3 style="margin-bottom: 1px; margin-top: 0px;">DEBIT NOTE FOR REIMBURSABLE EXPENSES</h3></u></b></center>
-    <hr style="margin-bottom: 1px; margin-top: 0px;">
+    <br>
+    <hr style="margin-bottom: 5px; margin-top: 0px; padding-bottom: 2px;">
+    <center><b><u><h3 style="margin-bottom: 0px; margin-top: 0px; padding-bottom: 0px;">DEBIT NOTE FOR REIMBURSABLE EXPENSES</h3></u></b></center>
+    <hr style="margin-bottom: 10px; margin-top: 0px; padding-top: 0px;">
 
     <table>
         <tr>
@@ -71,11 +72,12 @@
             <td style="width:10%;">NTN #:</td> <td style="width:60%;">{{bill.job.client.NTN}}</td>
         </tr>
     </table>
-    <hr style="margin-bottom: 1px; margin-top: 0px;">
+    
+    <hr style="margin-bottom: 10px; margin-top: 0px;">
 
     <table style="border: 0px solid black;">
         <tr>
-            <td style="width:15%;"><b>Packages:</b></td>
+            <td style="width:20%;"><b>Packages:</b></td>
             {% if bill.job.containers > 0 %}
             <td><b>{{bill.job.containers}}X{{bill.job.size}} CONT STC {{bill.job.packages}}</b></td>
             {% else %}
@@ -88,13 +90,13 @@
         </tr>
 
         <tr>
-            <td style="width:10%;"><b>Description:</b></td>
+            <td style="width:15%;"><b>Description:</b></td>
             <td style="width:40%;">{{bill.job.item}}</td>
             <td style="width:10%;"><b>Index No :</b></td>
             <td style="width:15%;">{{bill.job.index}}</td>
         </tr>
         <tr>
-            <td style="width:10%;"><b>Vessel:</b></td>
+            <td style="width:15%;"><b>Vessel:</b></td>
             <td style="width:40%;">{{bill.job.vessel}}</td>
             <td style="width:10%;"><b>G.D No :</b></td>
             <td style="width:17%;">{{bill.gdNo}}</td>
@@ -102,7 +104,7 @@
             <td style="width:15%;">{{bill.gdNoDate|date:'d-m-Y'}}</td>
         </tr>
         <tr>
-            <td style="width:10%;"><b>B/L:</b></td>
+            <td style="width:15%;"><b>B/L:</b></td>
             <td style="width:40%;">{{bill.job.bl}}</td>
             <td style="width:10%;"><b>Cash No.</b></td>
             <td style="width:17%;">{{bill.cashNo}}</td>
@@ -111,30 +113,31 @@
 
         </tr>
         <tr>
-            <td style="width:10%;"><b>L/C:</b></td>
+            <td style="width:15%;"><b>L/C:</b></td>
             <td style="width:40%;">{{bill.job.lc}}</td>
-            <td style="width:10%;"></b></td>
-            <td style="width:17%;"></td>
             <td style="width:15%;"><b>Import Value:</b></td>
-            <td style="width:10%;">{{bill.job.importValue}}</td>
+            <td style="width:15%;"><b>{{bill.job.importValue}}</b></td>
+            <td style="width:10%;"></td>
+            <td style="width:10%;"></td>
         </tr>
     </table>
-    <hr style="margin-bottom: 0px; margin-top: 0px;">
+    <hr style="margin-top: -5px;">
+
     <table id="bill_frame" style="">
         <tr style="border: 2px solid black;">
-            <th style="width: 60%; font-size: 19px; padding: 0px; line-height: 1px;"><b>Particulars</b></th>
-            <th style="width: 20%; font-size: 19px; padding: 0px;">Amount Paid By You</th>
-            <th style="width: 20%; font-size: 19px; padding: 0px;">Amount Paid By Us</th>
+            <th style="width: 60%; font-size: 18px; padding: 0px; line-height: 1px;"><b>Particulars</b></th>
+            <th style="width: 20%; font-size: 18px; padding-top: 1px; line-height: 5px;">Amount Paid By You</th>
+            <th style="width: 20%; font-size: 18px; padding-top: 1px; line-height: 1px;">Amount Paid By Us</th>
         </tr>
         {% for h in p %}
             <tr style=" line-height: 10px; padding-top: 2px; border: .5px dashed black; border-left: 2px solid black; border-right: 2px solid black;">
                 <td style="padding-left: 20px;">{{h.title}} {% if h.reciept %} {{h.reciept}} {% endif %} </td>
                 <td style="text-align: right; padding-right: 5px;">
-                    {% if h.byYou %}
+                    {% if h.byYou > 0%}
                         {{h.byYou|floatformat:0}}
                     {% endif %}    
                 </td>
-                {% if h.byUs %}
+                {% if h.byUs > 0%}
                     <td style="text-align: right; padding-right: 5px;">{{h.byUs|floatformat:0}}</td>
                 {% endif %}
                 
@@ -147,24 +150,21 @@
                 <th style="width: 20%; font-size: 16px;"></th>
                 <th style="width: 20%; font-size: 16px;"></th>
             </tr>
-        <tr style="padding-top: 0px; border-top: 2px solid black; border-right: 0px solid black; border-left: 2px solid black;">
-            <td style="padding-left: 3px; border-right: 2px solid black; font-size: 12px;"><b>Rupees: <u>{{inwords}}</u> Only </b></td>
-            <td style="text-align: right; padding-right: 5px; border-right: 0px;"><b>Total Expenses :</b></td>
-            <td style="text-align: right; padding-right: 5px; border-right: 2px; border-left: 0px">{{bill.grossTotal|floatformat:0}}</td>
+        <tr style="border-top: 2px solid black; border-right: 0px solid black; border-left: 2px solid black;">
+            <td style=" padding-top: -15px; padding-left: 10px; border-right: 2px solid black;" rowspan="4"><b>Rupees: <b>{{inwords}} Only </b></b></td>
+            <td style="padding: 1px; padding-top: 5px; text-align: right;"><b>Total Expenses :</b></td>
+            <td style="padding-top: 5px; padding-right: 5px; text-align: right; border-right: 2px; border-left: 0px;">{{bill.grossTotal|floatformat:0}}</td>
         </tr>
-        <tr style="padding-top: 0px; border-right: 2px solid black; border-left: 2px solid black;">
-            <td style="padding-left: 3px;  border-right: 2px solid black;">&emsp;</td>
-            <td style="text-align: right; padding-right: 5px; border-right: 0px;"><b>Service Charges :</b></td>
-            <td style="text-align: right; padding-right: 5px; border-right: 2px; border-left: 0px">{{bill.charges|floatformat:0}}</td>
+        <tr style="border-right: 2px solid black; border-left: 2px solid black;">
+            <td style="padding: 1px; text-align: right; border-right: 0px;"><b>Service Charges :</b></td>
+            <td style=" padding-right: 5px; text-align: right; border-right: 2px; border-left: 0px">{{bill.charges|floatformat:0}}</td>
         </tr>
-        <tr style="padding-top: 0px;  border-right: 2px solid black; border-left: 2px solid black;">
-            <td style="padding-left: 3px;">&emsp;</td>
-            <td style="text-align: right; padding-right: 5px; border-right: 0px;"><b>Sales Tax @ {{bill.rateOfST|floatformat:2}} :</b></td>
-            <td style="text-align: right; padding-right: 5px; border-right: 2px; border-left: 0px">{{bill.salesTax|floatformat:0}}</td>
+        <tr style="border-right: 2px solid black; border-left: 2px solid black;">
+            <td style="padding: 1px; text-align: right; padding-bottom: 5px; border-right: 0px;"><b>Sales Tax @ {{bill.rateOfST|floatformat:2}} :</b></td>
+            <td style=" padding-right: 5px; padding-bottom: 5px; text-align: right; border-right: 2px; border-left: 0px">{{bill.salesTax|floatformat:0}}</td>
         </tr>
-        <tr style="padding-top: 0px;  border-right: 2px solid black; border-bottom: 2px solid black; border-left: 2px solid black;">
-            <td style="padding-left: 3px;">&emsp;</td>
-            <td style="text-align: right; padding-right: 5px; border-top: 2px solid black; border-right: 0px;"><b>Amount Due to Us :</b></td>
+        <tr style="border-right: 2px solid black; border-bottom: 2px solid black; border-left: 2px solid black;">
+            <td style="padding-top: 3px; padding-bottom: 3px; text-align: right; border-top: 2px solid black; border-right: 0px;"><b>Amount Due to Us :</b></td>
             <td style="text-align: right; padding-right: 5px; border-top: 2px solid black;  border-right: 2px; border-left: 0px"><b>{{bill.total|floatformat:0}}</b></td>
         </tr>
     </table>
@@ -199,13 +199,12 @@
 <pdf:nextpage />
 <body>
     <div class="header">
-        <center><h1 style="font-size: 36px; margin-bottom: 0px; line-height:0px;">{{co.name}}</h1></center>
-        <center><span style="font-weight: bold; margin-top: 0px; padding: 0px;">Clearing & Forwarding Agent</p></center>
-        <center><span style="font-weight: bold; margin-bottom: 0px;">C.H.A.L No. {{co.challanNo}}</p></center>
-        <center><span style="font-weight: bold; margin-bottom: 0px;">{{co.address1}}</p></center>
-        <center><span style="font-weight: bold; margin-bottom: 0px;">{{co.address2}}</p></center>
-        <center><span style=" font-weight: bold; margin-bottom: 0px;"><u>{{co.city}}</u></p></center>
-        <center><span style="font-weight: bold; margin-bottom: 0px;">Phone # {{co.phone1}}</p></center>
+        <h1>FAITH ASSOCIATES</h1>
+        <center><span style="padding-top: 0px;">Clearing & Forwarding Agent</span></center>
+        <center><span>C.H.A.L No. 1942</span></center>
+        <center><span>Office # 5, Mezzanine Floor, Sutli Plaza, Young Husband Road</span></center>
+        <center><span><u>Kharadar, Karachi</u></span></center>
+        <center><span>Phone # 021-32313948-9</span></center>
     </div>
     <hr>
     <center><p style="font-size: 24px; margin-top: 0px; margin-bottom: 0px;"><u>Sales Tax Invoice</u></p></center>
@@ -226,32 +225,36 @@
             <td style="width:10%;">GST #:</td> <td style="width:60%;">{{bill.job.client.GST}}</td>
             <td ><b>Job No :</b></td><td><b>{{bill.job.jobNo}}</b></td>
         </tr>
+
+        <tr>
+            <td style="width:10%;">NTN #:</td> <td style="width:60%;">{{bill.job.client.GST}}</td>
+            <td ><b>Job No :</b></td><td><b>{{bill.job.client.NTN}}</b></td>
+        </tr>
     </table>
     <hr>
 
     <table style="border: 0px solid black;">
         <tr>
-          <td style="width:10%;"><b>Packages:</b></td>
+            <td style="width:20%;"><b>Packages:</b></td>
             {% if bill.job.containers > 0 %}
-            <td>{{bill.job.containers}}X{{bill.job.size}} CONT STC {{bill.job.packages}}</td>
+            <td><b>{{bill.job.containers}}X{{bill.job.size}} CONT STC {{bill.job.packages}}</b></td>
             {% else %}
-            <td>{{bill.job.packages}}</td> 
+            <td><b>{{bill.job.packages}}</b></td> 
             {% endif %}
-
-
+            
             <td style="width:10%;"><b>IGM No :</b></td>
-            <td style="width:10%;"><b>{{bill.job.igm}}</b></td>
+            <td style="width:10%;">{{bill.job.igm}}</td>
 
         </tr>
 
         <tr>
-            <td style="width:10%;"><b>Description:</b></td>
+            <td style="width:15%;"><b>Description:</b></td>
             <td style="width:40%;">{{bill.job.item}}</td>
             <td style="width:10%;"><b>Index No :</b></td>
-            <td style="width:10%;">{{bill.job.index}}</td>
+            <td style="width:15%;">{{bill.job.index}}</td>
         </tr>
         <tr>
-            <td style="width:10%;"><b>Vessel:</b></td>
+            <td style="width:15%;"><b>Vessel:</b></td>
             <td style="width:40%;">{{bill.job.vessel}}</td>
             <td style="width:10%;"><b>G.D No :</b></td>
             <td style="width:17%;">{{bill.gdNo}}</td>
@@ -259,7 +262,7 @@
             <td style="width:15%;">{{bill.gdNoDate|date:'d-m-Y'}}</td>
         </tr>
         <tr>
-            <td style="width:10%;"><b>B/L:</b></td>
+            <td style="width:15%;"><b>B/L:</b></td>
             <td style="width:40%;">{{bill.job.bl}}</td>
             <td style="width:10%;"><b>Cash No.</b></td>
             <td style="width:17%;">{{bill.cashNo}}</td>
@@ -268,16 +271,14 @@
 
         </tr>
         <tr>
-            <td style="width:10%;"><b>L/C:</b></td>
+            <td style="width:15%;"><b>L/C:</b></td>
             <td style="width:40%;">{{bill.job.lc}}</td>
-            <td style="width:10%;"></b></td>
-            <td style="width:17%;"></td>
-            <td style="width:12%;"><b>Import Value:</b></td>
-            <td style="width:10%;">{{bill.job.importValue}}</td>
+            <td style="width:15%;"><b>Import Value:</b></td>
+            <td style="width:15%;"><b>{{bill.job.importValue}}</b></td>
+            <td style="width:10%;"></td>
+            <td style="width:10%;"></td>
         </tr>
-
     </table>
-    
     
 
 
