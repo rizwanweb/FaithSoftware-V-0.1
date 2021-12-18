@@ -41,28 +41,20 @@
             font-size: 15px;
             line-height: 1px;
         }
-
     </style>
 </head>
 
-<body>
-    <div class="header">
-        <h1>FAITH ASSOCIATES</h1>
-        <center><span style="padding-top: 0px;">Clearing & Forwarding Agent</span></center>
-        <center><span>C.H.A.L No. 1942</span></center>
-        <center><span>Office # 5, Mezzanine Floor, Sutli Plaza, Young Husband Road</span></center>
-        <center><span><u>Kharadar, Karachi</u></span></center>
-        <center><span>Phone # 021-32313948-9</span></center>
+<body id="bill">
+    <div>
+        <hr style="margin-bottom:0px">
+        <center style="font-size: 52px; line-height:1px;">{{co.name}}</center>
+        <hr style="margin-top:0px">
     </div>
-    <br>
-    <hr style="margin-bottom: 5px; margin-top: 0px; padding-bottom: 2px;">
-    <center><b><u><h3 style="margin-bottom: 0px; margin-top: 0px; padding-bottom: 0px;">DEBIT NOTE FOR REIMBURSABLE EXPENSES</h3></u></b></center>
-    <hr style="margin-bottom: 10px; margin-top: 0px; padding-top: 0px;">
 
     <table>
         <tr>
             <td style="width:10%;">M/s:</td> <td style="width:60%;"><b><u>{{bill.pid.client}}</u></b></td>
-            <td ><b>Bill No: </b></td><td><b>{{bill.billNo}}/{% now "Y" %}</b></td>
+            <td ><b>Bill No: </b></td><td><b>PID-{{bill.pidbillNo}}/{% now "Y" %}</b></td>
         </tr>
 
         <tr>
@@ -77,12 +69,11 @@
             <td style="width:10%;">NTN #:</td> <td style="width:60%;">{{bill.pid.client.NTN}}</td>
         </tr>
     </table>
-    
-    <hr style="margin-bottom: 10px; margin-top: 0px;">
+    <hr>
 
     <table style="border: 0px solid black;">
         <tr>
-            <td style="width:20%;"><b>Packages:</b></td>
+            <td style="width:15%;"><b>Packages:</b></td>
             {% if bill.pid.containers > 0 %}
             <td><b>{{bill.pid.containers}}X{{bill.pid.size}} CONT STC {{bill.pid.packages}}</b></td>
             {% else %}
@@ -95,13 +86,13 @@
         </tr>
 
         <tr>
-            <td style="width:15%;"><b>Description:</b></td>
+            <td style="width:10%;"><b>Description:</b></td>
             <td style="width:40%;">{{bill.pid.item}}</td>
             <td style="width:10%;"><b>Index No :</b></td>
             <td style="width:15%;">{{bill.pid.index}}</td>
         </tr>
         <tr>
-            <td style="width:15%;"><b>Vessel:</b></td>
+            <td style="width:10%;"><b>Vessel:</b></td>
             <td style="width:40%;">{{bill.pid.vessel}}</td>
             <td style="width:10%;"><b>G.D No :</b></td>
             <td style="width:17%;">{{bill.gdNo}}</td>
@@ -109,7 +100,7 @@
             <td style="width:15%;">{{bill.gdNoDate|date:'d-m-Y'}}</td>
         </tr>
         <tr>
-            <td style="width:15%;"><b>B/L:</b></td>
+            <td style="width:10%;"><b>B/L:</b></td>
             <td style="width:40%;">{{bill.pid.bl}}</td>
             <td style="width:10%;"><b>Cash No.</b></td>
             <td style="width:17%;">{{bill.cashNo}}</td>
@@ -118,15 +109,18 @@
 
         </tr>
         <tr>
-            <td style="width:15%;"><b>L/C:</b></td>
+            <td style="width:10%;"><b>L/C:</b></td>
             <td style="width:40%;">{{bill.pid.lc}}</td>
+            <td style="width:10%;"></b></td>
+            <td style="width:17%;"></td>
+        </tr>
+        <tr>
             <td style="width:15%;"><b>Import Value:</b></td>
-            <td style="width:15%;"><b>{{bill.pid.importValue}}</b></td>
-            <td style="width:10%;"></td>
-            <td style="width:10%;"></td>
+            <td style="width:40%;">{{bill.pid.importValue}}</td>
+
         </tr>
     </table>
-    <hr style="margin-top: -5px;">
+    <hr>
 
     <table id="bill_frame" style="">
         <tr style="border: 2px solid black;">
@@ -149,33 +143,92 @@
             </tr>
         {% endfor %}
         </table>
-        <table class="">
+        <table class="f-14">
             <tr>
                 <th style="width: 60%; font-size: 16px;"></th>
                 <th style="width: 20%; font-size: 16px;"></th>
                 <th style="width: 20%; font-size: 16px;"></th>
             </tr>
         <tr style="border-top: 2px solid black; border-right: 0px solid black; border-left: 2px solid black;">
-            <td style="padding-top: -25px; padding-left: 10px; border-right: 2px solid black;" rowspan="3">Rupees: <b> Only </b></td>
+            <td style=" padding-top: -25px; padding-left: 10px; border-right: 2px solid black;" rowspan="4"><b>Rupees: <b>{{inwords}} Only </b></b></td>
             <td style="padding: 1px; padding-top: 5px; text-align: right;"><b>Total Expenses :</b></td>
             <td style="padding-top: 5px; padding-right: 5px; text-align: right; border-right: 2px; border-left: 0px;">{{bill.totalCharges|floatformat:0}}</td>
         </tr>
-        {% if bill.cashRefund > 0 %}
         <tr style="border-right: 2px solid black; border-left: 2px solid black;">
-        
             <td style="padding: 1px; text-align: right; border-right: 0px;"><b>Cash Refund :</b></td>
-            <td style=" padding-right: 5px; text-align: right; border-right: 2px; border-left: 0px">{{bill.cashRefund|floatformat:0}}</td>
+            <td style=" padding-right: 5px; text-align: right; border-right: 2px; border-left: 0px">{{bill.charges|floatformat:0}}</td>
         </tr>
-        {% endif %}
         <tr style="border-right: 2px solid black; border-left: 2px solid black;">
-            
-            <td style="padding: 1px; text-align: right; padding-bottom: 5px; border-right: 0px;"><b>Balance :</b></td>
-            <td style=" padding-right: 5px; padding-bottom: 5px; text-align: right; border-right: 2px; border-left: 0px">15000</td>
+            <td style="padding: 1px; text-align: right; padding-bottom: 5px; border-right: 0px;"><b>Sales Tax @ {{bill.rateOfST|floatformat:2}} :</b></td>
+            <td style=" padding-right: 5px; padding-bottom: 5px; text-align: right; border-right: 2px; border-left: 0px">{{bill.salesTax|floatformat:0}}</td>
+        </tr>
+        <tr style="border-right: 2px solid black; border-bottom: 2px solid black; border-left: 2px solid black;">
+            <td style="padding-top: 3px; padding-bottom: 3px; text-align: right; border-top: 2px solid black; border-right: 0px;"><b>Amount Due to Us :</b></td>
+            <td style="text-align: right; padding-right: 5px; border-top: 2px solid black;  border-right: 2px; border-left: 0px"><b>{{bill.total|floatformat:0}}</b></td>
         </tr>
     </table>
-        {% comment %} {% if bill.cashRefund > 0 %}
+
+
+    {% comment %} <table id="bill_frame" style="">
+        <tr style="border: 2px solid black;">
+            <th style="width: 60%; font-size: 18px; padding: 0px; line-height: 1px;"><b>Particulars</b></th>
+            <th style="width: 20%; font-size: 18px; padding-top: 1px; line-height: 5px;">Amount Paid By You</th>
+            <th style="width: 20%; font-size: 18px; padding-top: 1px; line-height: 1px;">Amount Paid By Us</th>
+        </tr>
+        {% for h in p %}
+            <tr style=" line-height: 10px; padding-top: 2px; border: .5px dashed black; border-left: 2px solid black; border-right: 2px solid black;">
+                <td style="padding-left: 20px;">{{h.title}} {% if h.reciept %} {{h.reciept}} {% endif %} </td>
+                <td style="text-align: right; padding-right: 5px;">
+                    {% if h.byYou > 0%}
+                        {{h.byYou|floatformat:0}}
+                    {% endif %}    
+                </td>
+                {% if h.byUs > 0%}
+                    <td style="text-align: right; padding-right: 5px;">{{h.byUs|floatformat:0}}</td>
+                {% endif %}
+                
+            </tr>
+        {% endfor %}
+        </table>
+        <table class="f-14">
+            <tr>
+                <th style="width: 60%; font-size: 16px;"></th>
+                <th style="width: 20%; font-size: 16px;"></th>
+                <th style="width: 20%; font-size: 16px;"></th>
+            </tr>
+        <tr style="border-top: 2px solid black; border-right: 0px solid black; border-left: 2px solid black;">
+            <td style=" padding-top: -25px; padding-left: 10px; border-right: 2px solid black;" rowspan="4"><b>Rupees: <b>{{inwords}} Only </b></b></td>
+            <td style="padding: 1px; padding-top: 5px; text-align: right;"><b>Total Expenses :</b></td>
+            <td style="padding-top: 5px; padding-right: 5px; text-align: right; border-right: 2px; border-left: 0px;">{{bill.totalCharges|floatformat:0}}</td>
+        </tr>
+        <tr style="border-right: 2px solid black; border-left: 2px solid black;">
+            <td style="padding: 1px; text-align: right; border-right: 0px;"><b>Cash Refund :</b></td>
+            <td style=" padding-right: 5px; text-align: right; border-right: 2px; border-left: 0px">{{bill.charges|floatformat:0}}</td>
+        </tr>
+        <tr style="border-right: 2px solid black; border-left: 2px solid black;">
+            <td style="padding: 1px; text-align: right; padding-bottom: 5px; border-right: 0px;"><b>Sales Tax @ {{bill.rateOfST|floatformat:2}} :</b></td>
+            <td style=" padding-right: 5px; padding-bottom: 5px; text-align: right; border-right: 2px; border-left: 0px">{{bill.salesTax|floatformat:0}}</td>
+        </tr>
+        <tr style="border-right: 2px solid black; border-bottom: 2px solid black; border-left: 2px solid black;">
+            <td style="padding-top: 3px; padding-bottom: 3px; text-align: right; border-top: 2px solid black; border-right: 0px;"><b>Amount Due to Us :</b></td>
+            <td style="text-align: right; padding-right: 5px; border-top: 2px solid black;  border-right: 2px; border-left: 0px"><b>{{bill.total|floatformat:0}}</b></td>
+        </tr>
+    </table> {% endcomment %}
+
+        {% comment %} <table>
+            <tr>
+            <th style=" font-size: 16px;"></th>
+            <th style="width: 20%; font-size: 16px;"></th>
+            <th style="width: 20%; font-size: 16px;"></th>
+            </tr>
+        <tr style="padding-top: 5px; border-top: 2px solid black; border-right: 0px solid black; border-left: 0px solid black; border-bottom: 0px solid black;">
+            <td style="padding-left: 3px; width: 70%; border-bottom: 0px; "><b></b> </td>
+            <td style="text-align: right; width: 15%; padding-right: 3px; border-right: 2px; border-left: 2px; border-bottom: 2px;"><b>Total Expenses:</b></td>
+            <td style="text-align: right; width: 15%; padding-right: 5px; border-right: 2px; border-bottom: 2px;"><b>{{bill.totalCharges|floatformat:0}}</b></td>
+        </tr>
+        {% if bill.cashRefund > 0 %}
         <tr style="padding-top: 5px;">
-            
+            <td style="padding-left: 3px; width: 70%;"></td>
             <td style="font-size: 13px; text-align: center; width: 15%; padding-right: 3px; border-bottom 2px solid black; border-left 2px solid black; border-right 2px solid black;"><b>Refund from {{bill.pid.terminal}}</b></td>
             <td style="text-align: right; width: 15%; padding-right: 5px; border-right 2px solid black; border-bottom 2px solid black;"><b>{{bill.cashRefund|floatformat:0}}</b></td>
         </tr>
@@ -188,19 +241,18 @@
         
         {% if bill.advance > 0 %}
         <tr style="padding-top: 5px; ">
-            
+            <td style="padding-left: 3px; width: 70%;"></td>
             <td style="font-size: 13px; text-align: right; width: 15%; padding-right: 3px; border-bottom 2px solid black; border-left 2px solid black; border-right 2px solid black;"><b>Party Advance</b></td>
             <td style="text-align: right; width: 15%; padding-right: 5px; border-right 2px solid black; border-bottom 2px solid black;"><b>{{bill.advance|floatformat:0}}</b></td>
         </tr>
         <tr style="padding-top: 5px; border-top: 0px solid black; border-right: 0px solid black; border-left: 0px solid black; border-bottom: 0px solid black;">
-            
+            <td style="padding-left: 3px; width: 70%; border-right: 2px solid black;"><b></b> </td>
             <td style="font-size: 13px; text-align: right; width: 15%; padding-right: 3px; border-right 2px solid black; border-bottom 2px solid black;"><b>Balance:</b></td>
             <td style="text-align: right; width: 15%; padding-right: 5px; border-right 2px solid black; border-bottom 2px solid black;"><b>{{bill.netBalance|floatformat:0}}</b></td>
         </tr>
         {% endif %}
     </table> {% endcomment %}
     
-    <div id="footer_content">
-        <hr>
-        <p style="text-align: right; margin-right: 30px; font-size: 18px;"><b>For: Faith Associates</b></p>
-    </div>
+</body>
+
+</html>

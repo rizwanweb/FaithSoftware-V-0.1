@@ -117,13 +117,17 @@ class BillReportPDF(LoginRequiredMixin, View):
 
 class PIDBillReportPDF(LoginRequiredMixin, View):
     login_url = 'login'
-    def get(self, request, pk, *args, **kwargs):
-        co = Company.objects.get(pk=1)
+    def get(self, request, pk, *args, **kwargs): 
         bill = PIDBill.objects.get(id=pk)
         particulars = PIDParticular.objects.filter(pid=bill.pid)
-    
+
+        if bill.cashRefund > 0:
+            refundBalance = bill.cashRefund - bill.totalCharges
+        if bill.advance > 0:
+            advanceBalance = bill.advance - bill.totalCharges
         context = {
-            'co': co,
+            'advanceBalance': advanceBalance,
+            'refundBalance': refundBalance,
             'bill': bill,
             'p': particulars,
         }
