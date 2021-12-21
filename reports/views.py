@@ -122,9 +122,9 @@ class PIDBillReportPDF(LoginRequiredMixin, View):
         particulars = PIDParticular.objects.filter(pid=bill.pid)
 
         if bill.cashRefund > 0:
-            refundBalance = bill.cashRefund - bill.totalCharges
+            refundBalance = bill.totalCharges - bill.cashRefund
         if bill.advance > 0:
-            advanceBalance = bill.advance - bill.totalCharges
+            advanceBalance = bill.totalCharges - bill.advance
         context = {
             'advanceBalance': advanceBalance,
             'refundBalance': refundBalance,

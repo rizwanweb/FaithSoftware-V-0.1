@@ -65,6 +65,9 @@ class Job(models.Model):
 
     billed = models.BooleanField(default=False)
 
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return str(self.jobNo)
 
@@ -129,6 +132,9 @@ class PID(models.Model):
     faithCheck = models.IntegerField(null=True, blank=True)
 
     billed = models.BooleanField(default=False)
+
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return str(self.PIDNo)

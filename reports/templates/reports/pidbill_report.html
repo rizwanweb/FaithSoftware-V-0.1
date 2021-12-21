@@ -61,20 +61,30 @@
 
     <table>
         <tr>
-            <td style="width:10%;">M/s:</td> <td style="width:60%;"><b><u>{{bill.pid.client}}</u></b></td>
-            <td ><b>Bill No: </b></td><td><b>{{bill.billNo}}/{% now "Y" %}</b></td>
+            <td style="width:10%;">M/s:</td> 
+            <td style="width:50%;"><b><u>{{bill.pid.client}}</u></b></td>
+            <td ><b>Bill No: </b></td>
+            <td><b>PID-{{bill.pidbillNo}}/{% now "Y" %}</b></td>
         </tr>
 
         <tr>
-            <td style="width:10%;">Address:</td> <td style="width:60%;">{{bill.pid.client.address}}</td>
-            <td ><b>Bill Date:</b></td><td><b>{{bill.billDate|date:'d-m-Y'}}</b></td>
+            <td style="width:10%;">Address:</td>
+            <td style="width:50%;" rowspan="2">{{bill.pid.client.address}}</td>
+            <td style="width:10%;"><b>Bill Date:</b></td>
+            <td><b>{{bill.billDate|date:'d-m-Y'}}</b></td>
         </tr>
-        
+        <tr></tr>
         <tr>
-            <td style="width:10%;">GST #:</td> <td style="width:60%;">{{bill.pid.client.GST}}</td>
+            <td style="width:10%;">GST #:</td> 
+            <td style="width:50%;">{{bill.pid.client.GST}}</td>
+            <td style="width:10%;"></td>
+            
         </tr>
         <tr>
-            <td style="width:10%;">NTN #:</td> <td style="width:60%;">{{bill.pid.client.NTN}}</td>
+            <td style="width:10%;">NTN #:</td> 
+            <td style="width:50%;">{{bill.pid.client.NTN}}</td>
+            <td style="width:10%;"></td>
+            <td></td>
         </tr>
     </table>
     
@@ -82,48 +92,56 @@
 
     <table style="border: 0px solid black;">
         <tr>
-            <td style="width:20%;"><b>Packages:</b></td>
+            <th style="width:18%;"></th>
+            <th style="width:40%;"></th>
+            <th style="width:18%;"></th>
+            <th style="width:20%;"></th>
+            <th style="width:10%;"></th>
+            <th style="width:10%;"></th>
+        </tr>
+        <tr>
+            <td><b>Packages:</b></td>
             {% if bill.pid.containers > 0 %}
             <td><b>{{bill.pid.containers}}X{{bill.pid.size}} CONT STC {{bill.pid.packages}}</b></td>
             {% else %}
             <td><b>{{bill.pid.packages}}</b></td> 
             {% endif %}
             
-            <td style="width:10%;"><b>IGM No :</b></td>
-            <td style="width:10%;">{{bill.pid.igm}}</td>
+            <td><b>IGM No :</b></td>
+            <td>{{bill.pid.igm}}</td>
 
         </tr>
 
         <tr>
-            <td style="width:15%;"><b>Description:</b></td>
-            <td style="width:40%;">{{bill.pid.item}}</td>
-            <td style="width:10%;"><b>Index No :</b></td>
-            <td style="width:15%;">{{bill.pid.index}}</td>
+            <td><b>Description:</b></td>
+            <td>{{bill.pid.item}}</td>
+            <td><b>Index No :</b></td>
+            <td>{{bill.pid.index}}</td>
         </tr>
         <tr>
-            <td style="width:15%;"><b>Vessel:</b></td>
-            <td style="width:40%;">{{bill.pid.vessel}}</td>
-            <td style="width:10%;"><b>G.D No :</b></td>
-            <td style="width:17%;">{{bill.gdNo}}</td>
-            <td style="width:10%;"><b>Dated :</b></td>
-            <td style="width:15%;">{{bill.gdNoDate|date:'d-m-Y'}}</td>
+            <td><b>Vessel:</b></td>
+            <td>{{bill.pid.vessel}}</td>
+            <td><b>G.D No :</b></td>
+            <td>{{bill.gdNo}}</td>
+            <td><b>Dated :</b></td>
+            <td>{{bill.gdNoDate|date:'d-m-Y'}}</td>
         </tr>
         <tr>
-            <td style="width:15%;"><b>B/L:</b></td>
-            <td style="width:40%;">{{bill.pid.bl}}</td>
-            <td style="width:10%;"><b>Cash No.</b></td>
-            <td style="width:17%;">{{bill.cashNo}}</td>
-            <td style="width:10%;"><b>Dated :</b></td>
-            <td style="width:15%;">{{bill.cashNoDate|date:'d-m-Y'}}</td>
+            <td><b>B/L:</b></td>
+            <td>{{bill.pid.bl}}</td>
+            <td><b>Cash No.</b></td>
+            <td>{{bill.cashNo}}</td>
+            <td><b>Dated :</b></td>
+            <td>{{bill.cashNoDate|date:'d-m-Y'}}</td>
 
         </tr>
         <tr>
-            <td style="width:15%;"><b>L/C:</b></td>
-            <td style="width:40%;">{{bill.pid.lc}}</td>
-            <td style="width:15%;"><b>Import Value:</b></td>
-            <td style="width:15%;"><b>{{bill.pid.importValue}}</b></td>
-            <td style="width:10%;"></td>
-            <td style="width:10%;"></td>
+            <td><b>L/C:</b></td>
+            <td>{{bill.pid.lc}}</td>
+            <td><b>Import Value:</b></td>
+            <td><b>{{bill.pid.importValue}}</b></td>
+            <td></td>
+            <td></td>
         </tr>
     </table>
     <hr style="margin-top: -5px;">
@@ -160,18 +178,33 @@
             <td style="padding: 1px; padding-top: 5px; text-align: right;"><b>Total Expenses :</b></td>
             <td style="padding-top: 5px; padding-right: 5px; text-align: right; border-right: 2px; border-left: 0px;">{{bill.totalCharges|floatformat:0}}</td>
         </tr>
-        {% if bill.cashRefund > 0 %}
+        {% if bill.cashRefund %}
         <tr style="border-right: 2px solid black; border-left: 2px solid black;">
         
             <td style="padding: 1px; text-align: right; border-right: 0px;"><b>Cash Refund :</b></td>
             <td style=" padding-right: 5px; text-align: right; border-right: 2px; border-left: 0px">{{bill.cashRefund|floatformat:0}}</td>
         </tr>
-        {% endif %}
+        
         <tr style="border-right: 2px solid black; border-left: 2px solid black;">
             
             <td style="padding: 1px; text-align: right; padding-bottom: 5px; border-right: 0px;"><b>Balance :</b></td>
-            <td style=" padding-right: 5px; padding-bottom: 5px; text-align: right; border-right: 2px; border-left: 0px">15000</td>
+            <td style=" padding-right: 5px; padding-bottom: 5px; text-align: right; border-right: 2px; border-left: 0px">{{refundBalance|floatformat:0}}</td>
         </tr>
+        {% endif %}
+
+        {% if bill.advance %}
+        <tr style="border-right: 2px solid black; border-left: 2px solid black;">
+            <td></td>
+            <td style="padding: 1px; text-align: right; border-right: 0px;"><b>Advance :</b></td>
+            <td style=" padding-right: 5px; text-align: right; border-right: 2px; border-left: 0px">{{bill.advance|floatformat:0}}</td>
+        </tr>
+        
+        <tr style="border-right: 2px solid black; border-left: 2px solid black;">
+            <td></td>
+            <td style="padding: 1px; text-align: right; padding-bottom: 5px; border-right: 0px;"><b>Balance :</b></td>
+            <td style=" padding-right: 5px; padding-bottom: 5px; text-align: right; border-right: 2px; border-left: 0px">{{advanceBalance|floatformat:0}}</td>
+        </tr>
+        {% endif %}
     </table>
         {% comment %} {% if bill.cashRefund > 0 %}
         <tr style="padding-top: 5px;">

@@ -36,6 +36,8 @@ class Bill(models.Model):
     note = models.CharField(max_length=500, null=True, blank=True)
     inwords = models.CharField(max_length=500, null=True, blank=True)
 
+    created = models.DateTimeField(null=True, auto_now_add=True)
+    updated = models.DateTimeField(null=True, auto_now_add=True)
     class Meta:
         ordering = [('billNo')]
     def __str__(self):

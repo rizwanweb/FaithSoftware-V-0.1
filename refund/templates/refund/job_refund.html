@@ -8,7 +8,7 @@
         margin: auto;
         width: 60%;
         padding: 10px;
-        margin-top: 20%
+        margin-top: 5%
     }
 
     .card {
@@ -31,24 +31,25 @@
             <div class="border">
                 <div class="container">
                     <div class="row align-items-start">
-                        <div class="col">
+                        <div class="col-2">
                             <p>Job#:<b>{{job.jobNo}}</b></p>
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <p>Client:<b>{{job.client}}</b></p>
                         </div>
                     </div>
                 </div>
                 <div class="container">
                     <div class="row align-items-start">
-                        <div class="col-7">
-                            <p>Shipping Line#:<b>{{job.shipping}}</b></p>
+                        <div class="col-8">
+                            <p>Shipping Line : <b> {{job.shipping}}</b></p>
                         </div>
                     </div>
                 </div>
             </div>
             <br>
-            <div class="align-items-end col-3">
+            <div class="col-3">
+                
                 <label for="">Container Deposit</label>
                 <input class="form-control text-end" type="text" id="deposit" name="" value="{{job.deposit}}" disabled>
                 
