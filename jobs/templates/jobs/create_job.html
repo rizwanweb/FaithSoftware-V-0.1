@@ -285,51 +285,66 @@
     </div>
 
 
+    <div class="row mt-5">
+      <div class="col-2">
+        <label for="id_terminal" class="form-label">Terminal Wharfage</label>
+        {% render_field form.terminalCharges class="form-control"%}
+      </div>
+  
+      <div class="col-2">
+        <label for="id_do" class="form-label">Delivery Order</label>
+        {% render_field form.do class="form-control"%}
+      </div>
+  
+      <div class="col-2">
+        <label for="id_lolo" class="form-label">Container Deposit</label>
+        {% render_field form.deposit class="form-control"%}
+      </div>
+  
+      <div class="col-2">
+        <label for="id_lolo" class="form-label">Advance Rent</label>
+        {% render_field form.advanceRent class="form-control"%}
+      </div>
 
-    <div class="col-3">
-      <label for="id_terminal" class="form-label">Terminal Wharfage</label>
-      {% render_field form.terminalCharges class="form-control"%}
+      <div class="col-2">
+        <label for="id_lolo" class="form-label">PSQC SDC</label>
+        {% render_field form.psqcaSDC class="form-control text-end"%}
+      </div>
+
+      <div class="col-2">
+        <label for="id_lolo" class="form-label">PSQC Testing</label>
+        {% render_field form.psqcaSDC class="form-control text-end"%}
+      </div>
+
     </div>
 
-    <div class="col-3">
-      <label for="id_do" class="form-label">Delivery Order</label>
-      {% render_field form.do class="form-control"%}
-    </div>
+<div class="row mt-3">
+  <div class="col-2">
+    <label for="id_do" class="form-label">Terminal</label>
+    {% render_field form.terminal class="form-control"%}
+  </div>
 
-    <div class="col-2">
-      <label for="id_lolo" class="form-label">Container Deposit</label>
-      {% render_field form.deposit class="form-control"%}
-    </div>
+  <div class="col-3">
+    <label for="id_lolo" class="form-label">Shipping Line</label>
+    {% render_field form.shipping class="form-control"%}
+  </div>
 
-    <div class="col-2">
-      <label for="id_lolo" class="form-label">Advance Rent</label>
-      {% render_field form.advanceRent class="form-control"%}
-    </div>
+  <div class="col-3">
+    <label for="id_lolo" class="form-label">Shipping Line LOLO</label>
+    {% render_field form.lolo class="form-control"%}
+  </div>
 
-    <div class="col-2">
-      <label for="id_do" class="form-label">Terminal</label>
-      {% render_field form.terminal class="form-control"%}
-    </div>
+  <div class="col-2">
+    <label for="id_lolo" class="form-label">LOLO Charges</label>
+    {% render_field form.loloCharges class="form-control"%}
+  </div>
 
-    <div class="col-3">
-      <label for="id_lolo" class="form-label">Shipping Line</label>
-      {% render_field form.shipping class="form-control"%}
-    </div>
+  <div class="col-2">
+    <label for="" class="form-label">Faith Check</label>
+    {% render_field form.faithCheck class="form-control"%}
+  </div>
+</div>
 
-    <div class="col-3">
-      <label for="id_lolo" class="form-label">Shipping Line LOLO</label>
-      {% render_field form.lolo class="form-control"%}
-    </div>
-
-    <div class="col-3">
-      <label for="id_lolo" class="form-label">LOLO Charges</label>
-      {% render_field form.loloCharges class="form-control"%}
-    </div>
-
-    <div class="col-3">
-      <label for="" class="form-label">Faith Check</label>
-      {% render_field form.faithCheck class="form-control"%}
-    </div>
 
     <hr>
     <div class="d-flex justify-content-between">

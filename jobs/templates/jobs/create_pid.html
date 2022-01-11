@@ -8,6 +8,15 @@
 
 {% block content %}
 
+<style>
+  .big-checkbox {
+    width: 30px; 
+    height: 30px;
+    margin-top: 35px;
+  }
+</style>
+
+
 <br>
 <div class="form-group">
   <form class="row g-3 form-inline" action="" method="POST">
@@ -116,7 +125,7 @@
 
     <div class="col-2">
       <label for="id_exRate" class="form-label">Exchange Rate</label>
-      {% render_field form.exRate class="form-control"%}
+      {% render_field form.exRate|attr:"onfocusout:setPSQCA(this)" class="form-control"%}
     </div>
 
     <div class="col-4">
@@ -259,63 +268,114 @@
     </div>
 
     <div class="col-sm-5">
-      {% render_field form.total|attr:"readonly" class="form-control"%}
+      {% render_field form.total|attr:"readonly" class="form-control text-end"%}
     </div>
 
 
+    <div class="row mt-5 mx-5">
+      <div class="col-3">
+        <label for="id_terminal" class="form-label">Terminal Wharfage</label>
+        {% render_field form.terminalCharges class="form-control text-end"%}
+      </div>
+  
+      <div class="col-2">
+        <label for="id_do" class="form-label">Delivery Order</label>
+        {% render_field form.do class="form-control text-end"%}
+      </div>
+  
+      <div class="col-2">
+        <label for="id_lolo" class="form-label">Container Deposit</label>
+        {% render_field form.deposit class="form-control text-end"%}
+      </div>
+  
+      <div class="col-2">
+        <label for="id_lolo" class="form-label">Advance Rent</label>
+        {% render_field form.advanceRent class="form-control text-end"%}
+      </div>
 
-    <div class="col-3">
-      <label for="id_terminal" class="form-label">Terminal Wharfage</label>
-      {% render_field form.terminalCharges class="form-control"%}
+      <div class="col-2">
+        <label class="form-label">PSQC SDC</label>
+        {% render_field form.psqcaSDC class="form-control text-end"%}
+      </div>
+      <div class="col-sm-1 form-check">
+        {% render_field form.showSDC|attr:"type:checkbox" class="form-check-input big-checkbox" %}
+      </div>
     </div>
 
-    <div class="col-3">
-      <label for="id_do" class="form-label">Delivery Order</label>
-      {% render_field form.do class="form-control"%}
+
+    
+
+
+    <div class="row mt-3 mx-5">
+
+      <div class="col-2">
+        <label for="id_do" class="form-label">Terminal</label>
+        {% render_field form.terminal class="form-control"%}
+      </div>
+  
+      <div class="col-3">
+        <label for="id_lolo" class="form-label">Shipping Line</label>
+        {% render_field form.shipping class="form-control"%}
+      </div>
+  
+      <div class="col-2">
+        <label for="id_lolo" class="form-label">Shipping Line LOLO</label>
+        {% render_field form.lolo class="form-control"%}
+      </div>
+  
+      <div class="col-2">
+        <label for="id_lolo" class="form-label">LOLO Charges</label>
+        {% render_field form.loloCharges class="form-control text-end"%}
+      </div>
+
+      <div class="col-2">
+        <label class="form-label">PSQC Testing</label>
+        {% render_field form.psqcaTesting class="form-control text-end"%}
+      </div>
+
+      <div class="col-1 form-check">
+        
+        {% render_field form.showTesting|attr:"type:checkbox" class="form-check-input big-checkbox" %}
+      </div>
     </div>
-
-    <div class="col-3">
-      <label for="id_lolo" class="form-label">Container Deposit</label>
-      {% render_field form.deposit class="form-control"%}
-    </div>
-
-    <div class="col-3">
-      <label for="id_lolo" class="form-label">Advance Rent</label>
-      {% render_field form.advanceRent class="form-control"%}
-    </div>
-
-
-    <div class="col-3">
-      <label for="id_do" class="form-label">Terminal</label>
-      {% render_field form.terminal class="form-control"%}
-    </div>
-
-    <div class="col-3">
-      <label for="id_lolo" class="form-label">Shipping Line</label>
-      {% render_field form.shipping class="form-control"%}
-    </div>
-
-    <div class="col-3">
-      <label for="id_lolo" class="form-label">Shipping Line LOLO</label>
-      {% render_field form.lolo class="form-control"%}
-    </div>
-
-    <div class="col-3">
-      <label for="id_lolo" class="form-label">LOLO Charges</label>
-      {% render_field form.loloCharges class="form-control"%}
-    </div>
-
     <hr>
-    <div class="d-flex justify-content-between">
-      <input class="btn btn-primary btn-outline" type="submit" value="Save">
-      <a href="" class="btn btn-danger btn-lg" type="">DELETE</a>
-      <a href="" class="btn btn-warning btn-lg" type="">CLEAR</a>
-      <a href="" class="btn btn-info btn-lg" type="">PRINT</a>
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button class="btn btn-lg btn-primary" type="submit">Save</button>
     </div>
-
   </form>
-
 </div>
+<br>
+
+<script>
+  function setPSQCA(i){
+    //const item = i.options[i.selectedIndex].text;
+    let e = document.getElementById("id_item")
+    var item = e.options[e.selectedIndex].text;
+    console.log(item)
+    if (item === "R.B.D PALM OLIEN" || item === "ELECTROLYTIC TIN PLATE" || item === "R.B.D COCONUT OIL"){
+
+      
+      let invoice = parseInt(document.getElementById("id_importValueUSD").value)
+      let exRate = parseInt(document.getElementById("id_exRate").value)
+
+      psqca = Math.round((invoice * exRate ) * 0.001 + (11300));
+      if (psqca < 16000){
+        document.getElementById("id_psqcaSDC").value = 16000;
+      }
+      else {
+        document.getElementById("id_psqcaSDC").value = psqca;
+      }
+      
+    }
+    else {
+      
+      document.getElementById("id_psqcaSDC").value = null;
+    }
+    
+  }
+</script>
+
+
 
 <script src="{% static 'js/jquery.js' %}"></script>
 <script src="{% static 'js/dutycalculation.js' %}"></script>

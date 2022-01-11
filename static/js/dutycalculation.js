@@ -115,11 +115,7 @@ $(document).ready(function () {
     
     //document.getElementById('#id_total').value = total + 26;
 
-    $("#id_total").val(parseInt(total));
-
   });
-
-  
 
 
 });

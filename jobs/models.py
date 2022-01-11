@@ -62,6 +62,10 @@ class Job(models.Model):
     shipping = models.ForeignKey(ShippingLine, on_delete=models.CASCADE)
     lolo = models.ForeignKey(LOLO, on_delete=models.CASCADE, null=True, blank=True)
     faithCheck = models.IntegerField(null=True, blank=True)
+    psqcaSDC = models.IntegerField(null=True, blank=True)
+    showSDC = models.BooleanField(default=False)
+    psqcaTesting = models.IntegerField(null=True, blank=True)
+    showTesting = models.BooleanField(default=True)
 
     billed = models.BooleanField(default=False)
 
@@ -130,6 +134,10 @@ class PID(models.Model):
     shipping = models.ForeignKey(ShippingLine, on_delete=models.CASCADE)
     lolo = models.ForeignKey(LOLO, on_delete=models.CASCADE, null=True, blank=True)
     faithCheck = models.IntegerField(null=True, blank=True)
+    psqcaSDC = models.IntegerField(null=True, blank=True)
+    showSDC = models.BooleanField(default=True)
+    psqcaTesting = models.IntegerField(null=True, blank=True)
+    showTesting = models.BooleanField(default=True)
 
     billed = models.BooleanField(default=False)
 
