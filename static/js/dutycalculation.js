@@ -113,7 +113,8 @@ $(document).ready(function () {
                 Number($("#id_rd").val())+
                 Number($("#id_antiDumping").val())
     
-    //document.getElementById('#id_total').value = total + 26;
+    
+    $('#id_total').val(parseInt(total))
 
   });
 
